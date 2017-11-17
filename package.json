@@ -1,0 +1,22 @@
+{
+  "name": "DiscordBot",
+  "version": "0.0.1",
+  "author": "SaitDev",
+  "homepage": "",
+  "bugs": {
+    "url": "https://github.com/SaitDev/.../issues"
+  },
+  "main": "launcher.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SaitDev/.git"
+  },
+  "scripts": {
+    "start": "node launcher.js",
+    "dev": "nodemon launcher.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.2.1",
+    "leetscript": "^1.1.0"
+  }
+}

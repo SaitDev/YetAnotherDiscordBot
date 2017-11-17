@@ -1,0 +1,7 @@
+{
+  "token": "put-your-token-here",
+  "prefix": ".",
+  "owner": "put-your-userid-here",
+  "guilds": [],
+  "logging": true
+}
