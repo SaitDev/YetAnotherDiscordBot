@@ -4,12 +4,12 @@
   "author": "SaitDev",
   "homepage": "",
   "bugs": {
-    "url": "https://github.com/SaitDev/.../issues"
+    "url": "https://github.com/SaitDev/YetAnotherDiscordBot/issues"
   },
   "main": "launcher.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SaitDev/.git"
+    "url": "https://github.com/SaitDev/YetAnotherDiscordBot.git"
   },
   "scripts": {
     "start": "node launcher.js",
