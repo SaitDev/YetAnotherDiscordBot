@@ -16,6 +16,7 @@
     "dev": "nodemon launcher.js"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "discord.js": "^11.2.1",
     "leetscript": "^1.1.0"
   }
