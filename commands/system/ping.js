@@ -14,9 +14,7 @@ class Ping extends Command {
     super(client, info);
   }
 
-  execute(msg, args) {
-    if (!this.checkChannel(msg.channel.type)) return;
-
+  run(msg, args) {
     if (Math.random() < 0.3) msg.channel.send('OK, worked!')
     else if (Math.random() < 0.6) msg.channel.send('Yep, Im working!')
     else msg.channel.send('Pong!');
