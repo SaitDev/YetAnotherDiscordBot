@@ -1,0 +1,19 @@
+{
+  "ecmaVersion": "7",
+  "libs": [],
+  "loadEagerly": [
+    "./launcher.js",
+    "./node_modules/discord.js/**/*.js"
+  ],
+  "dontLoad": [
+    "node_modules/**"
+  ],
+  "plugins": {
+    "es_modules": {},
+    "node": {},
+    "doc_comment": {
+      "fullDocs": false,
+      "strong": false
+    }
+  }
+}
