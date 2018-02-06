@@ -52,7 +52,7 @@ class CommandManager {
   }
 
   shouldHandle(msg) {
-    if (msg.guild && !config.guilds.includes(msg.guild.id)) return false;
+    if (msg.author.bot || (msg.guild && !config.guilds.includes(msg.guild.id))) return false;
     return true;
   }
 
