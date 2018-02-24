@@ -26,6 +26,11 @@ class CommandManager {
       fs.readdirSync(path.join(cmdPath, module)).forEach((file) => {
         const command = require(path.join(cmdPath, module, file));
         var cmd = new command(this.client);
+
+        if (!cmd.run || typeof this.run !== 'function') {
+          throw new TypeError('Command doesnt have run function');
+        }
+
         this.commands.set(cmd.name, cmd);
       });
     })
