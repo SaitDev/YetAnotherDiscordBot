@@ -27,7 +27,7 @@ class CommandManager {
         const command = require(path.join(cmdPath, module, file));
         var cmd = new command(this.client);
 
-        if (!cmd.run || typeof this.run !== 'function') {
+        if (!cmd.run || typeof cmd.run !== 'function') {
           throw new TypeError('Command doesnt have run function');
         }
 
