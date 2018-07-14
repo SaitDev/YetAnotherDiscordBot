@@ -7,15 +7,16 @@ const path = require('path');
 
 const config = require('./config.json');
 const CommandManager = require('./commands/CommandManager.js');
+const ChatLog = require('./logger/chatLog');
 
 client.ready = false;
 const prefix = config.prefix;
 const cmdPath = path.join(__dirname, 'commands');
 
-let commandManager;
+client.chatLogger = new ChatLog(client);
 
 client.once('ready', () => {
-  commandManager = new CommandManager(client, cmdPath);
+  client.commandManager = new CommandManager(client, cmdPath);
 });
 
 client.on('ready', () => {
@@ -23,7 +24,7 @@ client.on('ready', () => {
 });
 
 client.on('reconnecting', () => {
-  console.log('[Warn] Attempt to reconnect');
+  console.log('[Warn] Reconnecting');
 });
 
 client.on('disconnect', () => {
@@ -40,12 +41,28 @@ client.on('error', error => {
 
 
 client.on('message', message => {
-try {
-  if (!client.ready) return;
-  commandManager.handleMessage(message);
-} catch (err) {
-  console.error(err.stack);
-}
+  try {
+    if (!client.ready) return;
+    client.commandManager.handleMessage(message);
+  } catch (err) {
+    console.error(err.stack);
+  }
+});
+
+client.on('messageDelete', message => {
+  try {
+    client.chatLogger.deleted(message);
+  } catch (err) {
+    console.error(err.stack);
+  }
+});
+
+client.on('messageUpdate', (oldMsg, newMsg) => {
+  try {
+    client.chatLogger.edit(oldMsg, newMsg);
+  } catch (err) {
+    console.error(err.stack);
+  }
 });
 
 client.login(config.token);
