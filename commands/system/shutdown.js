@@ -1,0 +1,22 @@
+const Command = require('../Command');
+
+const info = {
+    name: "shutdown",
+    aliases: [],
+    description: "Shutdown bot",
+    runIn: ["text", "dm"],
+    ownerOnly: true
+}
+
+class Shutdown extends Command {
+    constructor(client) {
+        super(client, info)
+    }
+
+    run(msg, args) {
+        msg.channel.send('Bye world ಥʖ̯ಥ')
+        .then(message => process.exit(0));
+    }
+}
+
+module.exports = Shutdown;
