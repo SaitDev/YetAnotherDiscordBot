@@ -36,7 +36,7 @@ class CreateInvite extends Command {
             }
             
             var option = {
-                maxAge : 86400,
+                maxAge : 86400, // 1 day
                 maxUses : 0
             }
 

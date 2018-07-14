@@ -1,9 +1,10 @@
+const config = require('../config.json');
+
 class Command {
   constructor(client, info) {
-    Object.defineProperty(this, 'client', { value: client });
-
     Command.validateInfo(client, info);
 
+    this.client = client;
     this.name = info.name;
     this.description = info.description;
     this.runIn = info.runIn;
@@ -21,7 +22,13 @@ class Command {
   }
 
   execute(msg, args) {
-    if (this.checkChannel(msg)) this.run(msg, args);
+    if (this.checkChannel(msg)) {
+      if (this.ownerOnly && !config.owner.includes(msg.author.id)) {
+        msg.channel.send('You dont have permission to use this command');
+      } else {
+        this.run(msg, args);
+      }
+    }
   }
 
   checkChannel(msg) {

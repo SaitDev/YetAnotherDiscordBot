@@ -8,8 +8,7 @@ const config = require('../config.json');
 
 class CommandManager {
   constructor(client, cmdPath) {
-    Object.defineProperty(this, 'client', { value: client });
-
+    this.client = client;
     this.commands = new Collection();
     this.loadCommands(cmdPath);
   }
