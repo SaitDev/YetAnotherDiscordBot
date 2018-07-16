@@ -7,7 +7,7 @@ const Embed = require('../../util/embed');
 const info = {
     name: "holo",
     aliases: [],
-    description: "",
+    description: "Holo the Wise Wolf",
     runIn: ["text", "dm"],
     ownerOnly: false
 }

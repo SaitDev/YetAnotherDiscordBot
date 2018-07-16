@@ -3,24 +3,27 @@ const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
 
 const Embed = require('../../util/embed');
+const Util = require('../../util/commonUtil')
+
 const info = {
-    name: "kitsune",
+    name: "neko16+",
     aliases: [],
-    description: "Fox girls",
+    description: "#nsfw catgirls",
     runIn: ["text", "dm"],
+    isNSFW: true,
     ownerOnly: false
 }
 
-class Kitsune extends Command {
+class Neko16 extends Command {
     constructor(client, module) {
 		super(client, info, module);
 	}
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('fox_girl'))
+            embed: Embed.create(nekoLife.image('eron'))
         });
     }
 }
 
-module.exports = Kitsune;
+module.exports = Neko16;

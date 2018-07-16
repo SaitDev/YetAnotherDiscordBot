@@ -8,6 +8,7 @@ class Command {
     this.name = info.name;
     this.description = info.description;
     this.runIn = info.runIn;
+    this.isNSFW = info.isNSFW;
     this.ownerOnly = info.ownerOnly;
     this.module = module;
   }
@@ -26,7 +27,9 @@ class Command {
 
   execute(msg, args) {
     if (this.checkChannel(msg)) {
-      if (this.ownerOnly && !config.owner.includes(msg.author.id)) {
+      if (this.checkNsfw(msg)) {
+        msg.channel.send('This command can only be used in nsfw channel');
+      } else if (this.ownerOnly && !config.owner.includes(msg.author.id)) {
         msg.channel.send('You dont have permission to use this command');
       } else {
         this.run(msg, args);
@@ -36,6 +39,10 @@ class Command {
 
   checkChannel(msg) {
     return this.runIn.includes(msg.channel.type);
+  }
+
+  checkNsfw(msg) {
+    return this.isNSFW && !msg.channel.nsfw;
   }
 }
 
