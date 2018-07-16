@@ -9,6 +9,7 @@ const config = require('../config.json');
 class CommandManager {
   constructor(client, cmdPath) {
     this.client = client;
+    this.modules = [];
     this.commands = new Collection();
     this.loadCommands(cmdPath);
   }
@@ -22,9 +23,11 @@ class CommandManager {
     const modules = fs.readdirSync(cmdPath).filter(f => fs.statSync(path.join(cmdPath, f)).isDirectory());
 
     Promise.each(modules, (module) => {
+      this.modules.push(module);
       fs.readdirSync(path.join(cmdPath, module)).forEach((file) => {
+        if (!file.endsWith('.js')) return;
         const command = require(path.join(cmdPath, module, file));
-        var cmd = new command(this.client);
+        var cmd = new command(this.client, module);
 
         if (!cmd.run || typeof cmd.run !== 'function') {
           throw new TypeError('Command doesnt have run function');

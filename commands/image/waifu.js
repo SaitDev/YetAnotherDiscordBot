@@ -2,7 +2,7 @@ const Command = require('../Command');
 const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
 
-const Colors = require('../../util/colors');
+const Embed = require('../../util/embed');
 
 const info = {
     name: "waifu",
@@ -13,19 +13,13 @@ const info = {
 }
 
 class Waifu extends Command {
-    constructor(client) {
-        super(client, info)
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
 
     run(msg, args) {
         msg.channel.send({
-            embed: {
-                title: 'Here some waifu for your laifu',
-                image: {
-                    url: nekoLife.image('waifu')
-                },
-                color: Colors.getHex(Colors.list[Math.floor(Math.random() * Colors.list.length)])
-            }
+            embed: Embed.create(nekoLife.image('waifu'), '**Here some waifu for your laifu**')
         });
     }
 }

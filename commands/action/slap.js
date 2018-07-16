@@ -2,21 +2,21 @@ const Command = require('../Command');
 const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
 
-const Colors = require('../../util/colors');
+const Embed = require('../../util/embed');
 const whyGif = 'https://media.giphy.com/media/s239QJIh56sRW/giphy.gif';
 
 const info = {
     name: "slap",
     aliases: [],
-    description: "Slap them ~~as a tsundere~~",
+    description: "Slap them in the *tsundere way*",
     runIn: ["text", "dm"],
     ownerOnly: false
 }
 
 class Slap extends Command {
-    constructor(client) {
-        super(client, info)
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
 
     run(msg, args) {
         var message, link;
@@ -38,13 +38,7 @@ class Slap extends Command {
             }
         }
         msg.channel.send({
-            embed: {
-                description : message,
-                image: {
-                    url: link ? link : nekoLife.image('slap')
-                },
-                color: Colors.getHex(Colors.list[Math.floor(Math.random() * Colors.list.length)])
-            }
+            embed: Embed.create(link ? link : nekoLife.image('slap'), message)
         });
     }
 }

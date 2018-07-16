@@ -3,15 +3,15 @@ const Command = require('../Command');
 const info = {
     name: "untrack",
     aliases: [],
-    description: 'Untracking someone from editting messages',
+    description: 'Stop tracking someone from editting messages',
     runIn: ["text"],
     ownerOnly: true
 }
 
 class Untrack extends Command {
-    constructor(client) {
-        super(client, info)
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
 
     run(msg, args) {
         if (msg.mentions.members.size > 0) {

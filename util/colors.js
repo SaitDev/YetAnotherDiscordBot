@@ -29,7 +29,6 @@ const colors = {
   };
 
 exports.list = [
-    'DEFAULT',
     'AQUA',
     'GREEN',
     'BLUE',
@@ -38,6 +37,7 @@ exports.list = [
     'ORANGE',
     'RED',
     'GREY',
+    'DARKER_GREY',
     'NAVY',
     'DARK_AQUA',
     'DARK_GREEN',
@@ -46,9 +46,9 @@ exports.list = [
     'DARK_GOLD',
     'DARK_ORANGE',
     'DARK_RED',
+    'DARK_GREY',
     'LIGHT_GREY',
-    'DARK_NAVY',
-    'RANDOM',
+    'DARK_NAVY'
 ];
 
 exports.getHex = function(color) {

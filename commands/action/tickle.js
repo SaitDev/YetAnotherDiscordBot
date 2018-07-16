@@ -2,7 +2,7 @@ const Command = require('../Command');
 const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
 
-const Colors = require('../../util/colors');
+const Embed = require('../../util/embed');
 
 const info = {
     name: "tickle",
@@ -13,9 +13,9 @@ const info = {
 }
 
 class Tickle extends Command {
-    constructor(client) {
-        super(client, info)
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
 
     run(msg, args) {
         var message;
@@ -37,13 +37,7 @@ class Tickle extends Command {
             }
         }
         msg.channel.send({
-            embed: {
-                description : message,
-                image: {
-                    url: nekoLife.image('tickle')
-                },
-                color: Colors.getHex(Colors.list[Math.floor(Math.random() * Colors.list.length)])
-            }
+            embed: Embed.create(nekoLife.image('tickle'), message)
         });
     }
 }

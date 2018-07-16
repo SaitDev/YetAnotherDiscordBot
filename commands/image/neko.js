@@ -2,7 +2,7 @@ const Command = require('../Command');
 const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
 
-const Colors = require('../../util/colors');
+const Embed = require('../../util/embed');
 
 const info = {
     name: "neko",
@@ -13,18 +13,13 @@ const info = {
 }
 
 class Neko extends Command {
-    constructor(client) {
-        super(client, info)
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
 
     run(msg, args) {
         msg.channel.send({
-            embed: {
-                image: {
-                    url: nekoLife.image('neko')
-                },
-                color: Colors.getHex(Colors.list[Math.floor(Math.random() * Colors.list.length)])
-            }
+            embed: Embed.create(nekoLife.image('neko'))
         });
     }
 }

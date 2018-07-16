@@ -11,9 +11,9 @@ const info = {
 }
 
 class Meow extends Command {
-    constructor(client) {
-        super(client, info)
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
 
     run(msg, args) {
         msg.channel.send(nekoLife.cat());

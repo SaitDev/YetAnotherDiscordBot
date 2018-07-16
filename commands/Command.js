@@ -1,14 +1,15 @@
 const config = require('../config.json');
 
 class Command {
-  constructor(client, info) {
-    Command.validateInfo(client, info);
+  constructor(client, info, module) {
+    Command.validateInfo(client, info, module);
 
     this.client = client;
     this.name = info.name;
     this.description = info.description;
     this.runIn = info.runIn;
     this.ownerOnly = info.ownerOnly;
+    this.module = module;
   }
 
   static validateInfo(client, info) {
@@ -19,6 +20,8 @@ class Command {
     if (typeof info.name !== 'string') throw new Error('Command name must be a string.');
     if (info.name.includes(' ')) throw new Error('Command name must not have space.');
     if (info.name !== info.name.toLowerCase()) throw new Error('Command name must be lowercase.');
+
+    if (!module) throw new Error('Module should not be empty');
   }
 
   execute(msg, args) {

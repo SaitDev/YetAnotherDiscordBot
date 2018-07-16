@@ -5,15 +5,15 @@ const nekoLife = new NekoLife();
 const info = {
     name: "chat",
     aliases: [],
-    description: "Chat with ~~simple~~ AI",
+    description: "Chat with *simple* AI",
     runIn: ["text", "dm"],
     ownerOnly: false
 }
 
 class Chat extends Command {
-    constructor(client) {
-        super(client, info)
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
 
     run(msg, args) {
         msg.channel.send(nekoLife.chat(args));

@@ -10,9 +10,9 @@ const info = {
 
 
 class Ping extends Command {
-  constructor(client) {
-    super(client, info);
-  }
+  constructor(client, module) {
+		super(client, info, module);
+	}
 
   run(msg, args) {
     if (Math.random() < 0.3) msg.channel.send('OK, worked!')

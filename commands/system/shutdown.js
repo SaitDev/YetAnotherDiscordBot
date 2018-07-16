@@ -9,9 +9,9 @@ const info = {
 }
 
 class Shutdown extends Command {
-    constructor(client) {
-        super(client, info)
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
 
     run(msg, args) {
         msg.channel.send('Bye world ಥʖ̯ಥ')

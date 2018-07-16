@@ -9,9 +9,9 @@ const info = {
 }
 
 class CreateInvite extends Command {
-    constructor(client) {
-      super(client, info);
-    }
+    constructor(client, module) {
+		super(client, info, module);
+	}
   
     run(msg, args) {
         if (args) {
