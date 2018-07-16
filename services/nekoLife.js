@@ -8,6 +8,18 @@ const httpMethod = 'GET';
 
 class NekoLife {
     constructor() {
+        this.tag = ['feet', 'yuri', 'trap', 'futanari', 'hololewd', 
+            'lewdkemo', 'solog', 'feetg', 'cum', 'erokemo', 'les', 
+            'wallpaper', 'lewdk', 'ngif', 'meow', 'tickle', 'lewd', 
+            'feed', 'gecg', 'eroyuri', 'eron', 'cum_jpg', 'bj', 
+            'nsf_neko_gif', 'solo', 'kemonomimi', 'nsfw_avatar', 
+            'gasm', 'poke', 'anal', 'slap', 'hentai', 'avatar', 
+            'erofeet', 'holo', 'keta', 'blowjob', 'pussy', 'tits', 
+            'holoero', 'lizard', 'pussy_jpg', 'pwankg', 'classic', 
+            'kuni', 'waifu', 'pat', '8ball', 'kiss', 'femdom', 'neko', 
+            'spank', 'cuddle', 'erok', 'fox_girl', 'boobs', 
+            'Random_hentai_gif', 'smallboobs', 'hug', 'ero'
+        ];
     }
 
     chat(message) {
