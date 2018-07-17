@@ -60,7 +60,7 @@ class CreateInvite extends Command {
 
             this.create(channel, msg.channel, option);
         } else {
-            this.create(msg.channel. msg.channel);
+            this.create(msg.channel, msg.channel);
         }
     }
 
