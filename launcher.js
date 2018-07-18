@@ -10,13 +10,12 @@ const CommandManager = require('./commands/CommandManager.js');
 const ChatLog = require('./logger/chatLog');
 
 client.ready = false;
-const prefix = config.prefix;
 const cmdPath = path.join(__dirname, 'commands');
 
-client.chatLogger = new ChatLog(client);
-
 client.once('ready', () => {
+  console.log(`[Info] Login as ${client.user.username}`);
   client.commandManager = new CommandManager(client, cmdPath);
+  client.chatLogger = new ChatLog(client);
 });
 
 client.on('ready', () => {
@@ -24,7 +23,7 @@ client.on('ready', () => {
 });
 
 client.on('reconnecting', () => {
-  console.log('[Warn] Reconnecting');
+  console.warn('[Warn] Reconnecting');
 });
 
 client.on('disconnect', () => {
