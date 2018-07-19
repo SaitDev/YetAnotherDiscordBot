@@ -21,7 +21,7 @@ class Neko16 extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('eron'))
+            embed: Embed.create(nekoLife.image('eron'), msg.author.tag)
         });
     }
 }

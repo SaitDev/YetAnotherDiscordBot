@@ -20,7 +20,7 @@ class Neko extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(Util.randomTrue() ? nekoLife.image('ngif') : nekoLife.image('neko'))
+            embed: Embed.create(Util.randomTrue() ? nekoLife.image('ngif') : nekoLife.image('neko'), msg.author.tag)
         });
     }
 }

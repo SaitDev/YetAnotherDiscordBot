@@ -34,11 +34,11 @@ class Spank extends Command {
             if (msg.author.id == this.client.user.id) {
                 link = whyGif;
             } else {
-                message = `Here you masochist ${msg.author.toString()}`;
+                message = `Here, you masochist ${msg.author.toString()}`;
             }
         }
         msg.channel.send({
-            embed: Embed.create(link ? link : nekoLife.image('spank'), message)
+            embed: Embed.create(link ? link : nekoLife.image('spank'), msg.author.tag, message)
         });
     }
 }

@@ -2,9 +2,14 @@ const request = require('sync-request');
 
 const baseUrl = 'https://nekos.life';
 const imagePath = '/api/v2/img/';
-const chatPath = '/api/v2/chat?text=';
+const chatPath = '/api/v2/chat';
 const catPath = '/api/v2/cat';
+const chatParam = '?text=';
 const httpMethod = 'GET';
+
+const imageEndpoint = baseUrl + imagePath;
+const chatEndpoint = baseUrl + chatPath + chatParam;
+const catEndpoint = baseUrl + catPath;
 
 class NekoLife {
     constructor() {
@@ -23,18 +28,18 @@ class NekoLife {
     }
 
     chat(message) {
-        var res = request(httpMethod, baseUrl + chatPath + message);
+        var res = request(httpMethod, chatEndpoint + message);
         return JSON.parse(res.getBody('utf8')).response;
     }
 
     cat() {
-        var res = request(httpMethod, baseUrl + catPath);
+        var res = request(httpMethod, catEndpoint);
         return JSON.parse(res.getBody('utf8')).cat;
     }
 
     image(tag) {
         if (!tag) return null;
-        var res = request(httpMethod, baseUrl + imagePath + tag);
+        var res = request(httpMethod, imageEndpoint + tag);
         return JSON.parse(res.getBody('utf8')).url; //toString('utf-8')
     }
 }

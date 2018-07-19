@@ -37,7 +37,7 @@ class Tickle extends Command {
             }
         }
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('tickle'), message)
+            embed: Embed.create(nekoLife.image('tickle'), msg.author.tag, message)
         });
     }
 }

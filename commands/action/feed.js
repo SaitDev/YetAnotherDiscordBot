@@ -37,7 +37,7 @@ class Feed extends Command {
             }
         }
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('feed'), message)
+            embed: Embed.create(nekoLife.image('feed'), msg.author.tag, message)
         });
     }
 }

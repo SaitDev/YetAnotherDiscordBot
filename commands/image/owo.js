@@ -19,7 +19,7 @@ class OwO extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(ramMoe.image('owo'))
+            embed: Embed.create(ramMoe.image('owo'), msg.author.tag)
         });
     }
 }

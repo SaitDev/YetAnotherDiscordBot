@@ -19,7 +19,7 @@ class Wallpaper extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('wallpaper'))
+            embed: Embed.create(nekoLife.image('wallpaper'), msg.author.tag)
         });
     }
 }

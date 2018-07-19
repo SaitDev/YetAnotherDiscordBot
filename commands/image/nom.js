@@ -19,7 +19,7 @@ class Nom extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(ramMoe.image('nom'))
+            embed: Embed.create(ramMoe.image('nom'), msg.author.tag)
         });
     }
 }

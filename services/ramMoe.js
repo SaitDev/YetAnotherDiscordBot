@@ -4,6 +4,8 @@ const baseUrl = 'https://rra.ram.moe';
 const imagePath = '/i/r?type=';
 const httpMethod = 'GET';
 
+const imageEndpoint = baseUrl + imagePath;
+
 class RamMoe {
     constructor() {
         this.tags = [
@@ -17,7 +19,7 @@ class RamMoe {
 
     image(tag) {
         if (!tag) return null;
-        var res = request(httpMethod, baseUrl + imagePath + tag);
+        var res = request(httpMethod, imageEndpoint + tag);
         return baseUrl + JSON.parse(res.getBody('utf8')).path;
     }
 }

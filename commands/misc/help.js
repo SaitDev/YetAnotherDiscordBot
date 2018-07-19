@@ -4,10 +4,9 @@ const info = {
 	name: "help",
 	aliases: [],
 	description: "Get the list of commands",
-	runIn: ["text", "dm"],
+	runIn: ["text"],
 	ownerOnly: false
 }
-
 
 class Help extends Command {
 	constructor(client, module) {

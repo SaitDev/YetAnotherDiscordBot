@@ -20,7 +20,7 @@ class Trap extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('trap'))
+            embed: Embed.create(nekoLife.image('trap'), msg.author.tag)
         });
     }
 }

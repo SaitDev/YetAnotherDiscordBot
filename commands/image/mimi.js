@@ -19,7 +19,7 @@ class Mimi extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('kemonomimi'))
+            embed: Embed.create(nekoLife.image('kemonomimi'), msg.author.tag)
         });
     }
 }

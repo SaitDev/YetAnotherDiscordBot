@@ -20,7 +20,7 @@ class Holo18 extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('hololewd'))
+            embed: Embed.create(nekoLife.image('hololewd'), msg.author.tag)
         });
     }
 }

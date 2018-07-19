@@ -20,7 +20,7 @@ class Yuri extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('yuri'))
+            embed: Embed.create(nekoLife.image('yuri'), msg.author.tag)
         });
     }
 }

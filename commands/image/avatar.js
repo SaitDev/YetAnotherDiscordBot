@@ -19,7 +19,7 @@ class Avatar extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('avatar'))
+            embed: Embed.create(nekoLife.image('avatar'), msg.author.tag)
         });
     }
 }

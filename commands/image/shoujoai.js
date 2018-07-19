@@ -20,7 +20,7 @@ class ShoujoAi extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('eroyuri'))
+            embed: Embed.create(nekoLife.image('eroyuri'), msg.author.tag)
         });
     }
 }

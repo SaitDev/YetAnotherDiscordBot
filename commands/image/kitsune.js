@@ -18,7 +18,7 @@ class Kitsune extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('fox_girl'))
+            embed: Embed.create(nekoLife.image('fox_girl'), msg.author.tag)
         });
     }
 }

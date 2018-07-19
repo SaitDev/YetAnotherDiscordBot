@@ -19,7 +19,7 @@ class TooLewd extends Command {
 
     run(msg, args) {
         msg.channel.send({
-            embed: Embed.create(ramMoe.image('lewd'))
+            embed: Embed.create(ramMoe.image('lewd'), msg.author.tag)
         });
     }
 }
