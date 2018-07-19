@@ -50,7 +50,7 @@ class CommandManager {
 
 		if (msg.content.startsWith(this.config.prefix)) {
 			var cmd = msg.content.substring(1, msg.content.length);
-		} if (msg.content.startsWith(this.client.user.toString())) {
+		} else if (msg.content.startsWith(this.client.user.toString())) {
 			var cmd = 'chat ' + msg.content.substring(this.client.user.toString().length, msg.content.length)
 		} else if (msg.channel.type === 'dm') {
 			var cmd = msg.content;
