@@ -21,7 +21,7 @@ class Ping extends Command {
     else if (Math.random() < 0.6) message = 'Yep, Im working!';
     else message = 'Pong!';
     msg.channel.send({
-      embed: Embed.create(null, message + `\n${Math.round(this.client.ping)}ms`)
+      embed: Embed.create(null, null, message + `\n${Math.round(this.client.ping)}ms`)
     });
   }
 }
