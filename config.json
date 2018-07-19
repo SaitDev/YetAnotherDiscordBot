@@ -1,9 +1,17 @@
 {
-  "token": "put-your-token-here",
-  "prefix": "/",
-  "owner": ["put-your-userid-here"],
-  "guilds": [],
-  "tracking": [],
-  "logging": true,
-  "debug": false
+	"token": "put-your-token-here",
+	"prefix": "/",
+	"owner": [
+		"put-your-userid-here"
+	],
+	"guilds": [],
+	"dmCommand": true,
+	"tracking": [],
+	"botname": "BotName",
+	"cleverbot": {
+		"user": "cleverbot.io_api_user",
+		"key": "cleverbot.io_api_key"
+	},
+	"logging": true,
+	"debug": false
 }

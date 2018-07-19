@@ -1,11 +1,10 @@
 const Command = require('../Command');
-const NekoLife = require('../../services/nekoLife');
-const nekoLife = new NekoLife();
+const cleverbot = require('../../services/cleverbot.io.js');
 
 const info = {
     name: "chat",
     aliases: [],
-    description: "Chat with *simple* AI",
+    description: "Chat with Chitanda",
     runIn: ["text", "dm"],
     ownerOnly: false
 }
@@ -16,7 +15,13 @@ class Chat extends Command {
 	}
 
     run(msg, args) {
-        msg.channel.send(nekoLife.chat(args));
+        msg.channel.startTyping();
+        cleverbot.ask(args, response => {
+            msg.channel.stopTyping();
+            if (response) {
+                msg.channel.send(response);
+            }
+        });
     }
 }
 
