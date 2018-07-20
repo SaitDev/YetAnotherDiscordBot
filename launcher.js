@@ -6,7 +6,8 @@ const client = new Discord.Client();
 const path = require('path');
 
 const config = require('./config.json');
-const CommandManager = require('./commands/CommandManager.js');
+const CommandManager = require('./managers/commandManager.js');
+const PresenceManager = require('./managers/presenceManager.js');
 const ChatLog = require('./logger/chatLog');
 
 client.ready = false;
@@ -15,7 +16,10 @@ const cmdPath = path.join(__dirname, 'commands');
 client.once('ready', () => {
   console.log(`[Info] Login as ${client.user.username}`);
   client.commandManager = new CommandManager(client, cmdPath);
+  client.presenceManager = new PresenceManager(client, config);
   client.chatLogger = new ChatLog(client);
+
+  client.presenceManager.start();
 });
 
 client.on('ready', () => {

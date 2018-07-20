@@ -12,6 +12,12 @@
 		"user": "cleverbot.io_api_user",
 		"key": "cleverbot.io_api_key"
 	},
+	"presence": [
+		"/help",
+		["you", "WATCHING"],
+		"with your heart",
+		"puzzle"
+	],
 	"logging": true,
 	"debug": false
 }
