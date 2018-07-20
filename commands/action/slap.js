@@ -1,8 +1,11 @@
 const Command = require('../Command');
 const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
+const RamMoe = require('../../services/ramMoe');
+const ramMoe = new RamMoe();
 
 const Embed = require('../../util/embed');
+const Util = require('../../util/commonUtil');
 const whyGif = 'https://media.giphy.com/media/s239QJIh56sRW/giphy.gif';
 
 const info = {
@@ -21,12 +24,15 @@ class Slap extends Command {
     run(msg, args) {
         var message, link;
         if (msg.mentions.members.size > 0) {
-            if (msg.mentions.members.first().id == this.client.user.id) {
+            if (msg.mentions.mentions.first().id == msg.author.id) {
                 if (msg.author.id == this.client.user.id) {
                     link = whyGif;
                 } else {
-                    message = `*touch cheek* you baka ${msg.author.toString()}`;
+                    message = 'Here, you masochist.\n' + 
+                        `${this.client.user.toString()} slapped ${msg.author.toString()}`;
                 }
+            } else if (msg.mentions.members.first().id == this.client.user.id) {
+                message = `*touch cheek* you baka ${msg.author.toString()}`;
             } else {
                 message = `${msg.author.toString()} slapped ${msg.mentions.members.first().toString()}. BAKA`
             }
@@ -34,11 +40,13 @@ class Slap extends Command {
             if (msg.author.id == this.client.user.id) {
                 link = whyGif;
             } else {
-                message = `Here, you masochist ${msg.author.toString()}`;
+                message = 'Here, you masochist.\n' + 
+                    `${this.client.user.toString()} slapped ${msg.author.toString()}`;
             }
         }
         msg.channel.send({
-            embed: Embed.create(link ? link : nekoLife.image('slap'), msg.author.tag, message)
+            embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('slap') : ramMoe.image('slap')), 
+                msg.author.tag, message)
         });
     }
 }

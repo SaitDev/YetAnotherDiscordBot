@@ -1,8 +1,12 @@
 const Command = require('../Command');
 const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
+const RamMoe = require('../../services/ramMoe');
+const ramMoe = new RamMoe();
 
 const Embed = require('../../util/embed');
+const Util = require('../../util/commonUtil');
+const confusedGif = 'https://media.giphy.com/media/kaq6GnxDlJaBq/giphy.gif';
 
 const info = {
     name: "tickle",
@@ -18,26 +22,27 @@ class Tickle extends Command {
 	}
 
     run(msg, args) {
-        var message;
+        var message, link;
         if (msg.mentions.members.size > 0) {
-            if (msg.mentions.members.first().id == this.client.user.id) {
-                if (msg.author.id == this.client.user.id) {
-                    message = 'Imma tickle myself .-.'
-                } else {
-                    message = '*laughing* stop, dont do that'
-                }
+            if (msg.mentions.members.first().id == msg.author.id) {
+                link = confusedGif;
+                message = '*confused*';
+            } else if (msg.mentions.members.first().id == this.client.user.id) {
+                message = '*giggle* stop, dont do that'
             } else {
                 message = `${msg.mentions.members.first().toString()} got tickled by ${msg.author.toString()} uwu`
             }
         } else {
             if (msg.author.id == this.client.user.id) {
-                message = 'Imma tickle myself .-.'
+                //self-bot wrong usage
+                link = confusedGif;
             } else {
                 message = `${msg.author.toString()} got tickled by ${this.client.user.toString()} uwu`
             }
         }
         msg.channel.send({
-            embed: Embed.create(nekoLife.image('tickle'), msg.author.tag, message)
+            embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('tickle') : ramMoe.image('tickle')), 
+                msg.author.tag, message)
         });
     }
 }

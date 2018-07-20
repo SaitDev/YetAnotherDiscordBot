@@ -1,10 +1,16 @@
 const Command = require('../Command');
 const cleverbot = require('../../services/cleverbot.io.js');
 
+const Embed = require('../../util/embed');
+
 const info = {
     name: "chat",
     aliases: [],
     description: "Chat with Chitanda",
+    usage: [
+        "/chat text",
+        "@Mention#Chitanda text"
+    ],
     runIn: ["text", "dm"],
     ownerOnly: false
 }
@@ -16,12 +22,18 @@ class Chat extends Command {
 
     run(msg, args) {
         msg.channel.startTyping();
-        cleverbot.ask(args, response => {
+        try {
+            cleverbot.ask(args, response => {
+                msg.channel.stopTyping();
+                if (response) {
+                    msg.channel.send({
+                        embed: Embed.create(null, null, msg.author.toString() + `\n${response}`)
+                    });
+                }
+            });
+        } catch (err) {
             msg.channel.stopTyping();
-            if (response) {
-                msg.channel.send(response);
-            }
-        });
+        }
     }
 }
 

@@ -3,7 +3,7 @@ const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
 
 const Embed = require('../../util/embed');
-const Util = require('../../util/commonUtil')
+const Util = require('../../util/commonUtil');
 
 const info = {
     name: "neko",

@@ -3,6 +3,7 @@ const NekoLife = require('../../services/nekoLife');
 const nekoLife = new NekoLife();
 
 const Embed = require('../../util/embed');
+const confusedGif = 'https://media.giphy.com/media/kaq6GnxDlJaBq/giphy.gif';
 
 const info = {
     name: "feed",
@@ -20,18 +21,18 @@ class Feed extends Command {
     run(msg, args) {
         var message;
         if (msg.mentions.members.size > 0) {
-            if (msg.mentions.members.first().id == this.client.user.id) {
-                if (msg.author.id == this.client.user.id) {
-                    message = 'Im eating'
-                } else {
-                    message = 'aaaaaaaa'
-                }
+            if (msg.mentions.members.first().id == msg.author.id) {
+                link = confusedGif;
+                message = '*confused*';
+            } else if (msg.mentions.members.first().id == this.client.user.id) {
+                message = 'AAAaaaaa'
             } else {
                 message = `${msg.mentions.members.first().toString()}, say aaaaaaaaaa`
             }
         } else {
             if (msg.author.id == this.client.user.id) {
-                message = 'Im eating'
+                //self-bot wrong usage
+                link = confusedGif;
             } else {
                 message = `${msg.author.toString()}, say aaaaaaaaaa`
             }

@@ -21,12 +21,15 @@ class Spank extends Command {
     run(msg, args) {
         var message, link;
         if (msg.mentions.members.size > 0) {
-            if (msg.mentions.members.first().id == this.client.user.id) {
+            if (msg.mentions.members.first().id == msg.author.id) {
                 if (msg.author.id == this.client.user.id) {
                     link = whyGif;
                 } else {
-                    message = `Thats hurt, you baka ${msg.author.toString()}`;
+                    message = 'Here, you masochist.\n' + 
+                        `${this.client.user.toString()} spanks ${msg.author.toString()}`;
                 }
+            } else if (msg.mentions.members.first().id == this.client.user.id) {
+                message = `Thats hurt, you baka ${msg.author.toString()}`;
             } else {
                 message = `${msg.author.toString()} spanks ${msg.mentions.members.first().toString()}, a real bad ass`;
             }
@@ -34,7 +37,8 @@ class Spank extends Command {
             if (msg.author.id == this.client.user.id) {
                 link = whyGif;
             } else {
-                message = `Here, you masochist ${msg.author.toString()}`;
+                message = 'Here, you masochist.\n' + 
+                    `${this.client.user.toString()} spanks ${msg.author.toString()}`;
             }
         }
         msg.channel.send({
