@@ -24,7 +24,7 @@ class Slap extends Command {
     run(msg, args) {
         var message, link;
         if (msg.mentions.members.size > 0) {
-            if (msg.mentions.mentions.first().id == msg.author.id) {
+            if (msg.mentions.members.first().id == msg.author.id) {
                 if (msg.author.id == this.client.user.id) {
                     link = whyGif;
                 } else {

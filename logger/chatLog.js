@@ -23,7 +23,8 @@ class ChatLog {
     deleted(msg) {
         if (msg.author.id == this.client.user.id || msg.author.bot) return;
         if (!msg.channel.guild || 
-            (this.config.guilds && this.config.guilds.length > 0 && !this.config.guilds.includes(msg.channel.guild.id))) {
+            (this.config.guilds && this.config.guilds.length > 0 && 
+                !this.config.guilds.includes(msg.channel.guild.id))) {
             return;
         }
 
@@ -32,7 +33,7 @@ class ChatLog {
             console.log('[' + new Date().toLocaleString() + '] ' + msg.author.username)
             console.log(msg.content)
             msg.attachments.forEach(element => {
-                console.log(element.proxyURL)
+                console.log('attachment: ' + element.proxyURL)
             });
         }
 
@@ -50,8 +51,9 @@ class ChatLog {
 
     edit(oldMsg, newMsg) {
         if (oldMsg.author.id == this.client.user.id || oldMsg.author.bot) return;
-        if (oldMsg.channel.guild || 
-            (this.config.guilds && this.config.guilds.length > 0 && !this.config.guilds.includes(oldMsg.channel.guild.id))) {
+        if (!oldMsg.channel.guild || 
+            (this.config.guilds && this.config.guilds.length > 0 &&
+                !this.config.guilds.includes(oldMsg.channel.guild.id))) {
             return;
         }
         if (!newMsg || !newMsg.editedAt) return;
@@ -61,7 +63,7 @@ class ChatLog {
             console.log('[' + new Date().toLocaleString() + '] ' + oldMsg.author.username)
             console.log(oldMsg.id + ': ' +  oldMsg.content)
             oldMsg.attachments.forEach(element => {
-                console.log(element.proxyURL);
+                console.log('attachment: ' + element.proxyURL);
             });
         }
 

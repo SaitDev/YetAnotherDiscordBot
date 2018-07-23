@@ -48,6 +48,10 @@ class CommandManager {
 	handleMessage(msg) {
 		if (!this.shouldHandle(msg)) return;
 
+		if (!this.config.dmCommand && msg.channel.type === 'dm') {
+			return;
+		}
+
 		if (msg.content.startsWith(this.config.prefix)) {
 			var cmd = msg.content.substring(1, msg.content.length);
 		} else if (msg.content.startsWith(this.client.user.toString())) {
