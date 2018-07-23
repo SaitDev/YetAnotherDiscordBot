@@ -52,12 +52,17 @@ class CommandManager {
 			return;
 		}
 
+		var cmd;
 		if (msg.content.startsWith(this.config.prefix)) {
-			var cmd = msg.content.substring(1, msg.content.length);
+			cmd = msg.content.substring(1, msg.content.length);
 		} else if (msg.content.startsWith(this.client.user.toString())) {
-			var cmd = 'chat ' + msg.content.substring(this.client.user.toString().length, msg.content.length)
+			cmd = msg.content.substring(this.client.user.toString().length + 1, msg.content.length);
+			if (!cmd) return;
+			if (!cmd.startsWith('help ') && cmd != 'help') {
+				cmd = 'chat ' + cmd;
+			}
 		} else if (this.config.dmCommand && msg.channel.type === 'dm') {
-			var cmd = msg.content;
+			cmd = msg.content;
 		} else return;
 
 		var result = this.parse(cmd);

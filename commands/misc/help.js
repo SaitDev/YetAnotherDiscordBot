@@ -4,7 +4,7 @@ const info = {
 	name: "help",
 	aliases: [],
 	description: "Get the list of commands",
-	runIn: ["text"],
+	runIn: ["text", "dm"],
 	ownerOnly: false
 }
 
