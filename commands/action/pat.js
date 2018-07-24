@@ -11,7 +11,7 @@ const confusedSelfPat = 'https://cdn.weeb.sh/images/HyOYf8XD-.gif';
 const info = {
     name: "pat",
     aliases: [],
-    description: "Pat someone",
+    description: "Head pat",
     runIn: ["text", "dm"],
     ownerOnly: false
 }

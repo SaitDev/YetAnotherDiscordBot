@@ -11,7 +11,7 @@ const confusedGif = 'https://media.giphy.com/media/kaq6GnxDlJaBq/giphy.gif';
 const info = {
     name: "tickle",
     aliases: [],
-    description: "Tickle someone",
+    description: "Tickle your friend",
     runIn: ["text", "dm"],
     ownerOnly: false
 }
