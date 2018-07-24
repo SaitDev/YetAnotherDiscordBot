@@ -32,7 +32,7 @@ class Slap extends Command {
                         `${this.client.user.toString()} slapped ${msg.author.toString()}`;
                 }
             } else if (msg.mentions.members.first().id == this.client.user.id) {
-                message = `*touch cheek* you baka ${msg.author.toString()}`;
+                message = `*touch cheek* you baka. Take this ${msg.author.toString()}`;
             } else {
                 message = `${msg.author.toString()} slapped ${msg.mentions.members.first().toString()}. BAKA`
             }

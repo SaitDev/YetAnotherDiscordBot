@@ -1,5 +1,5 @@
 const defaultPresenceActivity = "PLAYING";
-const changePresenceDelay = 60000; //60sec
+const changePresenceDelay = 100000; //100sec
 
 class PresenceManager {
     constructor(client, customConfig) {

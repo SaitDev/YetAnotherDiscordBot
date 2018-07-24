@@ -7,7 +7,7 @@ const Embed = require('../../util/embed');
 const info = {
     name: "toolewd",
     aliases: [],
-    description: "That is too lewd >.>",
+    description: "That is lewd >.>",
     runIn: ["text", "dm"],
     ownerOnly: false
 }

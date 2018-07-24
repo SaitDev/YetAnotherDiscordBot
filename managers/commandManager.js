@@ -68,7 +68,7 @@ class CommandManager {
 		var result = this.parse(cmd);
 		if (result.isCommand) {
 			if (this.config.logging) {
-				console.log('[Log] Command requested by ' + msg.author.username);
+				console.log(`[Log] Command requested to ${this.client.user.username} by ${msg.author.username} in ${msg.guild ? '`' + msg.guild.name + '`' : 'Dirrect messages'}`);
 				console.log('[Log] ' + msg.content);
 			}
 			this.commands.get(result.name).execute(msg, result.args)

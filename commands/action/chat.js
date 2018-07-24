@@ -21,6 +21,7 @@ class Chat extends Command {
 	}
 
     run(msg, args) {
+        if (!args) return;
         msg.channel.startTyping();
         try {
             cleverbot.ask(args, response => {
