@@ -8,11 +8,12 @@ exports.textToIcon = (str) => {
        icons += ':regional_indicator_' + str.charAt(i).toLowerCase() + ': '
     else if ('0' <= str.charAt(i) && str.charAt(i) <= '9')
        icons += ':' + numWord[numList.indexOf(str.charAt(i))] + ': '
-    else if (str.charAt(i) === '?') bigtext += ':question: '
-    else if (str.charAt(i) === '!') bigtext += ':exclamation: '
-    else if (str.charAt(i) === '.') bigtext += ':small_blue_diamond: '
-    else if (str.charAt(i) === '-') bigtext += ':heavy_minus_sign: '
-    else if (str.charAt(i) === ' ') bigtext += '  ';
+    else if (str.charAt(i) === '?') icons += ':question: '
+    else if (str.charAt(i) === '!') icons += ':exclamation: '
+    else if (str.charAt(i) === '.') icons += ':small_blue_diamond: '
+    else if (str.charAt(i) === '-') icons += ':heavy_minus_sign: '
+    else if (str.charAt(i) === '+') icons += ':heavy_plus_sign: '
+    else if (str.charAt(i) === ' ') icons += '  ';
     else icons += str.charAt(i);
   }
   return icons;
