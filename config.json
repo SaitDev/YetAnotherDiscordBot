@@ -17,7 +17,8 @@
 		"@mention help",
 		["you", "WATCHING"],
 		"with your heart",
-		"puzzle"
+		"puzzle",
+		["Hyouka", "WATCHING"]
 	],
 	"logging": true,
 	"debug": false

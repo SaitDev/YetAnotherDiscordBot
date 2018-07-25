@@ -29,7 +29,6 @@ class Pat extends Command {
                 message = 'Dont be like that .-.'
             } else if (msg.mentions.members.first().id == this.client.user.id) {
                 message = `${msg.author.toString()} is patting me (=・ω・=)`;
-                //(´・ω・`)
             } else {
                 message = `${msg.mentions.members.first().toString()}, ${msg.author.toString()} is patting you`
             }

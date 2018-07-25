@@ -38,7 +38,7 @@ class Kupole extends Command {
         for (let emoji of this.emoji) {
             list += `\`${emoji["0"]}\`, `;
         }
-        list = list.substring(0, list.length - 1);
+        list = list.substring(0, list.length - 2);
         
         return list;
     }

@@ -28,7 +28,7 @@ class Chat extends Command {
                 msg.channel.stopTyping();
                 if (response) {
                     msg.channel.send({
-                        embed: Embed.create(null, null, msg.author.toString() + `\n${response}`)
+                        embed: Embed.create(null, null, msg.author.toString() + ` ${response}`)
                     });
                 }
             });
