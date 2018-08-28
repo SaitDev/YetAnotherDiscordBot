@@ -1,10 +1,11 @@
 const request = require('sync-request');
 
 const baseUrl = 'https://rra.ram.moe';
-const imagePath = '/i/r?type=';
+const imagePath = '/i/r';
+const imageTypeParam = '?type=';
 const httpMethod = 'GET';
 
-const imageEndpoint = baseUrl + imagePath;
+const imageEndpoint = baseUrl + imagePath + imageTypeParam;
 
 class RamMoe {
     constructor() {

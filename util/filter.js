@@ -9,7 +9,7 @@ function removeSpace(message) {
 }
 
 function removeNonLatin(message) {
-    return message.replace( /([^\x00-\xFF]|\s)*$/g, '' );
+    return message.replace(/([^\x00-\xFF]|\s)*$/g, '');
 }
 
 class Filter {
@@ -46,25 +46,28 @@ class Filter {
         return false;
     }
 
-    containOwner(msg, args) {
+    async containOwner(msg, args) {
         if (args && this.config.owner && this.config.owner.length > 0) {
             var content = simplify(args);
-            
+
             for (var i = 0; i < this.config.owner.length; i++) {
-                var contained = this.client.fetchUser(this.config.owner[i])
-                .then(user => {
-                    var usernameParts = user.username.split(' ');
-                    for (var i = 0; i < usernameParts.length; i++) {
-                        if (content.includes(simplify(usernameParts[i]))) {
-                            return true;
+                var contained = await this.client.fetchUser(this.config.owner[i])
+                    .then(user => {
+                        if (!user || !user.username) return false;
+                        var usernameParts = user.username.split(' ');
+                        for (var i = 0; i < usernameParts.length; i++) {
+                            var part = simplify(usernameParts[i]);
+                            if (part && content.includes(part)) {
+                                return true;
+                            }
                         }
-                    }
-                    return false;
-                })
-                .catch(err => {
-                    console.error(err.stack);
-                    return false;
-                });
+                        return false;
+                    })
+                    .catch(err => {
+                        console.error(err.stack);
+                        return false;
+                    });
+
                 if (contained) return true;
             }
         }

@@ -17,9 +17,11 @@ class BigText extends Command {
 		this.filter = new Filter(this.client);
 	}
 
-	run(msg, args) {
+	async run(msg, args) {
 		if (args) {
-			if (this.filter.containBot(msg, args) || this.filter.containOwner(msg, args)) {
+			if ((this.filter.containBot(msg, args) || await this.filter.containOwner(msg, args)) && 
+				msg.author.id != this.client.user.id
+			) {
 				msg.channel.send(':thinking:');
 			} else {
 				msg.channel.send(emoji.textToIcon(args));
