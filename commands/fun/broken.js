@@ -27,7 +27,7 @@ class Broken extends Command {
             while (Math.random() >= nextWordChance) {
                 message += weirdo.charAt(Math.floor(Math.random() * (weirdo.length - 1)));
             }
-            message += ' ';
+            message += '   ';
         }
         msg.channel.send(message)
     }
