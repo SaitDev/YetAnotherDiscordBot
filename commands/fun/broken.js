@@ -1,6 +1,7 @@
 const Command = require('../Command');
 const weirdo = '¡¢£¤¥¦§¨ª«¬¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽž'
 const nextWordChance = 0.15;
+const maxChar = 16;
 
 const info = {
     name: "broken",
@@ -24,8 +25,10 @@ class Broken extends Command {
         var message = '';
         for (var i = 1; i <= words; i++) {
             message += weirdo.charAt(Math.floor(Math.random() * (weirdo.length - 1)));
-            while (Math.random() >= nextWordChance) {
+            var char = 0;
+            while (char < maxChar && Math.random() >= nextWordChance) {
                 message += weirdo.charAt(Math.floor(Math.random() * (weirdo.length - 1)));
+                char ++;
             }
             message += '   ';
         }
