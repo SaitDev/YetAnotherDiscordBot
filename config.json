@@ -13,13 +13,16 @@
 		"key": "cleverbot.io_api_key"
 	},
 	"presence": [
-		"/help",
+		"help",
 		"@mention help",
 		["you", "WATCHING"],
 		"with your heart",
 		"puzzle",
 		["Hyouka", "WATCHING"]
 	],
-	"logging": true,
+	"log": {
+		"logging": true,
+		"channel": "channel-id-for-log"
+	},
 	"debug": false
 }

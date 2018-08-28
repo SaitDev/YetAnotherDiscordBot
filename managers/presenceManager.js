@@ -43,6 +43,7 @@ class PresenceManager {
     }
 
     setPresence(text, activity) {
+        if (text.trim() == 'help') text = this.config.prefix + text;
         this.client.user.setPresence({
             game: {
                 name: text,

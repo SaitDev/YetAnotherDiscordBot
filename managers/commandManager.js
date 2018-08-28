@@ -4,6 +4,8 @@ const Promise = require('bluebird');
 const Discord = require('discord.js');
 const Collection = Discord.Collection;
 
+const CommandLog = require('../logger/commandLog');
+
 class CommandManager {
 	constructor(client, cmdPath, customConfig) {
 		if (customConfig) this.config = customConfig;
@@ -12,6 +14,7 @@ class CommandManager {
 		this.modules = [];
 		this.commands = new Collection();
 		this.loadCommands(cmdPath);
+		this.client.commandLog = new CommandLog(client);
 	}
 
 	loadCommands(cmdPath) {
@@ -67,10 +70,11 @@ class CommandManager {
 
 		var result = this.parse(cmd);
 		if (result.isCommand) {
-			if (this.config.logging) {
-				console.log(`[Log] Command requested to ${this.client.user.username} by ${msg.author.username} in ${msg.guild ? '`' + msg.guild.name + '`' : 'Dirrect messages'}`);
-				console.log('[Log] ' + msg.content);
-			}
+			try {
+                this.client.commandLog.cmdRequested(msg);
+            } catch (err) {
+				console.error(err.stack)
+            }
 			this.commands.get(result.name).execute(msg, result.args)
 		}
 	}
