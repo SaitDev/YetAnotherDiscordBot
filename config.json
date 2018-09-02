@@ -23,11 +23,11 @@
 	"log": {
 		"logging": true,
 		"channel": {
-            "guilds": "channel-id-for-guild-events",
-            "cmdError": "channel-id-for-command-error-log",
-            "info": "channel-id-for-other-info-log",
-            "warn": "channel-id-for-other-warning-log",
-            "error": "channel-id-for-other-error-log"
+			"guilds": "channel-id-for-guild-events",
+			"cmdError": "channel-id-for-command-error-log",
+			"info": "channel-id-for-other-info-log",
+			"warn": "channel-id-for-other-warning-log",
+			"error": "channel-id-for-other-error-log"
         }
 	},
 	"debug": false
