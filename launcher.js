@@ -10,12 +10,14 @@ const CommandManager = require('./managers/commandManager.js');
 const PresenceManager = require('./managers/presenceManager.js');
 const ChatLog = require('./logger/chatLog');
 const GuildLog = require('./logger/guildLog');
+const ErrorLog = require('./logger/errorlog');
 
 client.ready = false;
 const cmdPath = path.join(__dirname, 'commands');
 
 client.once('ready', () => {
-    console.log(`[Info] Login as ${client.user.username}`);
+    client.errorLog = new ErrorLog(client);
+    client.errorLog.info(`Login as ${client.user.username}`);
     client.commandManager = new CommandManager(client, cmdPath);
     client.presenceManager = new PresenceManager(client, config);
     client.chatLogger = new ChatLog(client);
@@ -25,23 +27,23 @@ client.once('ready', () => {
 });
 
 client.on('ready', () => {
-    console.log('[Info] Connected!');
+    client.errorLog.info('Connected!', true);
 });
 
 client.on('reconnecting', () => {
-    console.warn('[Warn] Reconnecting');
+    client.errorLog.warn('Reconnecting', true);
 });
 
 client.on('disconnect', () => {
-    console.error('[Error] Disconnected.');
+    client.errorLog.error(new Error('Disconnected'), true);
 });
 
-client.on('warn', info => {
-    console.warn('[Warn] ' + info);
+client.on('warn', mess => {
+    client.errorLog.warn(mess, true);
 });
 
 client.on('error', error => {
-    console.error('[Error] ' + error.message);
+    client.errorLog.error(error);
 });
 
 
@@ -50,7 +52,7 @@ client.on('message', message => {
         if (!client.ready) return;
         client.commandManager.handleMessage(message);
     } catch (err) {
-        console.error(err.stack);
+        client.errorLog.commandFail(err);
     }
 });
 
@@ -58,7 +60,7 @@ client.on('messageDelete', message => {
     try {
         client.chatLogger.deleted(message);
     } catch (err) {
-        console.error(err.stack);
+        client.errorLog.error(err);
     }
 });
 
@@ -66,7 +68,7 @@ client.on('messageUpdate', (oldMsg, newMsg) => {
     try {
         client.chatLogger.edit(oldMsg, newMsg);
     } catch (err) {
-        console.error(err.stack);
+        client.errorLog.error(err);
     }
 });
 
@@ -74,7 +76,7 @@ client.on('guildCreate', (guild) => {
     try {
         client.guildLogger.joined(guild);
     } catch (err) {
-        console.error(err.stack);
+        client.errorLog.error(err);
     }
 });
 
@@ -82,7 +84,7 @@ client.on('guildDelete', (guild) => {
     try {
         client.guildLogger.left(guild);
     } catch (err) {
-        console.error(err.stack);
+        client.errorLog.error(err);
     }
 });
 
