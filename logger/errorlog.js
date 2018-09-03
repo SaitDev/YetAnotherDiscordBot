@@ -4,7 +4,7 @@ const textChat = ['text', 'dm', 'group'];
 
 class ErrorLog {
     /**
-     * @param {import('discord.js').Client} client 
+     * @param {import('../chitanda')} client 
      */
     constructor(client) {
         this.client = client;
@@ -65,7 +65,7 @@ class ErrorLog {
         if (err.stack) {
             console.error(err.stack);
         } else if (err.message) {
-            console.error('[Error] ' + err.message);
+            console.error('[Error] ' + (err.name ? '' : `\`${err.name}\` `) + err.message);console.error(err.name)
         } else {
             console.error('[Error] ' + err);
         }

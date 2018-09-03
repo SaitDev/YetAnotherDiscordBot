@@ -4,6 +4,11 @@ const Embed = require('../util/embed');
 const nsfwGuide = 'https://i.imgur.com/cdakHFu.png';
 
 class Command {
+	/**
+	 * @param {import('../chitanda')} client 
+	 * @param {*} info 
+	 * @param {string} module
+	 */
 	constructor(client, info, module) {
 		Command.validateInfo(client, info, module);
 

@@ -1,12 +1,14 @@
+const Discord = require('discord.js');
+
 class CommandLog {
     /**
-     * @param {import('discord.js').Client} client 
+     * @param {import('../chitanda')} client 
      */
     constructor(client) {
         this.client = client;
         this.uses = 0;
-        this.userUses = new Map();
-        this.guildUses = new Map();
+        this.userUses = new Discord.Collection();
+        this.guildUses = new Discord.Collection();
     }
 
     /**
@@ -22,9 +24,10 @@ class CommandLog {
         )
 
         this.uses++;
-        this.userUses[msg.author.id] = (this.userUses[msg.author.id] + 1) || 1;
+        var userId = msg.author.id;
+        this.userUses.set(userId, this.userUses.has(userId) ? this.userUses.get(userId) + 1 : 1);
         var guildId = msg.guild ? msg.guild.id : 0;
-        this.guildUses[guildId] = (this.guildUses[guildId] + 1) || 1;
+        this.guildUses.set(guildId, this.guildUses.has(guildId) ? this.guildUses.get(guildId) + 1 : 1);
     }
 }
 

@@ -18,12 +18,40 @@ class Stats extends Command {
 	}
 
     run(msg, args) {
+        var topGuilds = this.client.commandLogger.guildUses.sort((a, b) => a[1] - b[1]).firstKey(3);
+        var topUsers = this.client.commandLogger.userUses.sort((a, b) => a[1] - b[1]).firstKey(3);
+
+        var topGuildMessage = '';
+        topGuilds.forEach(id => {
+            topGuildMessage += `${this.guildName(id)} - ${this.client.commandLogger.guildUses.get(id)}, `;
+        });
+        topGuildMessage = topGuildMessage.slice(0, topGuildMessage.length - 2);
+
+        var topUserMessage = '';
+        topUsers.forEach(id => {
+            topUserMessage += `${this.client.users.get(id).username} - ${this.client.commandLogger.userUses.get(id)}, `;
+        });
+        topUserMessage = topUserMessage.slice(0, topUserMessage.length - 2);
+        
         msg.channel.send(`\`\`\`
-Serving ${(this.config.guilds && this.config.guilds.length > 0) ? this.config.guilds.length : this.client.guilds.size} guilds
+Serving ${this.isLimitedActive() ? this.config.guilds.length : this.client.guilds.size} guilds
 Stalking ${this.client.users.size} humans
 Up time ${moment.duration(this.client.uptime).humanize()}
 RAM usage ${Math.round(process.memoryUsage().rss / 1048576)}MB/${Math.round(os.totalmem() / 1048576)}MB
+
+Processed commands ${this.client.commandLogger.uses} times
+Most active guilds: ${topGuildMessage ? topGuildMessage : 'None'}
+Most active users: ${topUserMessage ? topUserMessage : 'None'}
 \`\`\``);
+    }
+
+    guildName(id) {
+        if (id == 0) return '(Direct Message)'
+        return this.client.guilds.get(id).name;
+    }
+
+    isLimitedActive() {
+        return this.config.guilds && this.config.guilds.length > 0;
     }
 }
 

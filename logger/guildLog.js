@@ -3,7 +3,7 @@ const textChat = ['text', 'dm', 'group'];
 
 class GuildLog {
     /**
-     * @param {import('discord.js').Client} client 
+     * @param {import('../chitanda')} client 
      */
     constructor(client) {
         this.client = client;
