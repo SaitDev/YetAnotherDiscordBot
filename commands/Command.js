@@ -9,6 +9,7 @@ class Command {
 
 		this.client = client;
 		this.name = info.name;
+		this.aliases = info.aliases;
 		this.description = info.description;
 		this.runIn = info.runIn;
 		this.isNSFW = info.isNSFW;
