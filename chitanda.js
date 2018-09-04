@@ -9,6 +9,10 @@ const ChatLog = require('./logger/chatLog');
 const GuildLog = require('./logger/guildLog');
 
 class Chitanda extends Discord.Client {
+    /**
+     * @param {string} cmdPath 
+     * @param {*} options 
+     */
     constructor(cmdPath, options) {
         super(options);
         this.ready = false

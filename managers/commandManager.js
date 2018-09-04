@@ -7,14 +7,14 @@ const Collection = Discord.Collection;
 class CommandManager {
     /**
      * @param {import('../chitanda')} client 
-     * @param {*} cmdPath 
+     * @param {string} cmdPath
      * @param {*} customConfig 
      */
     constructor(client, cmdPath, customConfig) {
         if (customConfig) this.config = customConfig;
         else this.config = require('../config.json');
         this.client = client;
-        this.modules = [];
+        this.modules = new Collection();
         this.commands = new Collection();
         this.aliases = new Collection();
         this.cmdPath = cmdPath;
@@ -28,12 +28,21 @@ class CommandManager {
 
         const modules = fs.readdirSync(this.cmdPath).filter(f => fs.statSync(path.join(this.cmdPath, f)).isDirectory());
 
-        Promise.each(modules, (module) => {
-            this.modules.push(module);
-            fs.readdirSync(path.join(this.cmdPath, module)).forEach((file) => {
+        //module id is folder name
+        Promise.each(modules, (moduleId) => {
+            this.modules.set(moduleId, null);
+            fs.readdirSync(path.join(this.cmdPath, moduleId)).forEach((file) => {
+                if (file.toLowerCase() == 'module.json') {
+                    const moduleInfo = require(path.join(this.cmdPath, moduleId, file));
+                    if (this.isValidModuleConfig(moduleInfo)) {
+                        this.modules.set(moduleId, moduleInfo);
+                    }
+                    return;
+                }
+
                 if (!file.endsWith('.js')) return;
-                const Command = require(path.join(this.cmdPath, module, file));
-                var cmd = new Command(this.client, module);
+                const Command = require(path.join(this.cmdPath, moduleId, file));
+                var cmd = new Command(this.client, moduleId);
 
                 if (!cmd.run || typeof cmd.run !== 'function') {
                     throw new TypeError('Command doesnt have run function');
@@ -127,6 +136,10 @@ class CommandManager {
         isCommand = isAlias || this.commands.has(name);
 
         return { isAlias, isCommand, name, args };
+    }
+
+    isValidModuleConfig(moduleConfig) {
+        return moduleConfig.name && moduleConfig.description;
     }
 }
 

@@ -1,4 +1,6 @@
 {
+	"version": "0.2-beta",
+	"support": "invite-to-your-support-server",
 	"token": "put-your-token-here",
 	"prefix": "/",
 	"owner": [
