@@ -16,6 +16,7 @@ class Command {
 		this.name = info.name;
 		this.aliases = info.aliases;
 		this.description = info.description;
+		this.usages = info.usages;
 		this.runIn = info.runIn;
 		this.isNSFW = info.isNSFW;
 		this.ownerOnly = info.ownerOnly;

@@ -18,6 +18,7 @@ class CommandManager {
         this.commands = new Collection();
         this.aliases = new Collection();
         this.cmdPath = cmdPath;
+        this.longestName = '';
     }
 
     loadCommands() {
@@ -52,6 +53,9 @@ class CommandManager {
                     throw new Error('Duplicate command name');
                 }
                 this.commands.set(cmd.name, cmd);
+                if (cmd.name.length > this.longestName.length) {
+                    this.longestName = cmd.name;
+                }
             });
         }).then(() => {
             for (let cmd of this.commands.values()) {

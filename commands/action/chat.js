@@ -7,7 +7,7 @@ const info = {
     name: "chat",
     aliases: [],
     description: "Chat with Chitanda",
-    usage: [
+    usages: [
         "/chat text",
         "@Mention#Chitanda text"
     ],

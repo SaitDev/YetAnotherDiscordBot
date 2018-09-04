@@ -3,7 +3,7 @@ const Command = require('../Command');
 const info = {
     name: "track",
     aliases: [],
-    description: 'Tracking any message editting from someone',
+    description: 'Track any message editting from someone',
     runIn: ["text"],
     ownerOnly: true
 }
