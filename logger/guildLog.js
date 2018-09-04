@@ -15,8 +15,8 @@ class GuildLog {
      */
     joined(guild) {
         if (config.log.logging && config.log.channel.guilds) {
-            if (this.client.channels.has(config.log.channel)) {
-                var channel = this.client.channels.get(config.log.channel);
+            if (this.client.channels.has(config.log.channel.guilds)) {
+                var channel = this.client.channels.get(config.log.channel.guilds);
                 if (textChat.includes(channel.type)) {
                     channel.send(`:tada: :new: Joined guild ${guild.name} \`${guild.id}\``);
                 }
@@ -30,8 +30,8 @@ class GuildLog {
      */
     left(guild) {
         if (config.log.logging && config.log.channel.guilds) {
-            if (this.client.channels.has(config.log.channel)) {
-                var channel = this.client.channels.get(config.log.channel);
+            if (this.client.channels.has(config.log.channel.guilds)) {
+                var channel = this.client.channels.get(config.log.channel.guilds);
                 if (textChat.includes(channel.type)) {
                     channel.send(`:footprints: Left guild ${guild.name} \`${guild.id}\``);
                 }
