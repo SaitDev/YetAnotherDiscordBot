@@ -42,7 +42,7 @@ class Help extends Command {
 		}
 		if (!fields) {
 			fields = this.generateGeneralHelp();
-			message += config.support ? `[Support server](${config.support})\n` : '';
+			message = config.support ? `[Support server](${config.support})\n` : '';
 			message += `Version: \`${config.version}\`` +
                 `\nUse \`${config.prefix}help name\` to get more details`;
 		}
