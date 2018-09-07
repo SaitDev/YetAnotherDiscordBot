@@ -25,7 +25,7 @@ class DiscordBotOrg {
         });
 
         this.service.webhook.on('ready', hook => {
-            client.errorLogger.info(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+            client.errorLogger.info(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`, true);
         });
         this.service.webhook.on('vote', vote => {
             //TODO: remove these debug after success on production
