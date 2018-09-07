@@ -18,8 +18,8 @@ class Stats extends Command {
 	}
 
     run(msg, args) {
-        var topGuilds = this.client.commandLogger.guildUses.sort((a, b) => a[1] - b[1]).firstKey(3);
-        var topUsers = this.client.commandLogger.userUses.sort((a, b) => a[1] - b[1]).firstKey(3);
+        var topGuilds = this.client.commandLogger.guildUses.sort((val1, val2, key1, key2) => val2 - val1).firstKey(3);
+        var topUsers = this.client.commandLogger.userUses.sort((val1, val2, key1, key2) => val2 - val1).firstKey(3);
 
         var topGuildMessage = '';
         topGuilds.forEach(id => {
