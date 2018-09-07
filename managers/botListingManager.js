@@ -31,10 +31,10 @@ class BotListingManager {
         this.client.fetchUser(userId)
         .then(user => {
             if (user.dmChannel) {
-                sendThank(user.dmChannel, user)
+                sendThank(this.client, user.dmChannel, user);
             } else {
                 user.createDM().then(dm => {
-                    sendThank(dm, user);
+                    sendThank(this.client, dm, user);
                 })
             }
         })
@@ -51,7 +51,6 @@ class BotListingManager {
  * @param {import('discord.js').User} user 
  */
 var sendThank = function(client, dmChannel, user) {
-    dmChannel.send();
     client.messageUtil.sendFromChannel(
         dmChannel, 
         messages[Math.floor(Math.random() * messages.length)]
