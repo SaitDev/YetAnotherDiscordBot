@@ -2,6 +2,16 @@ const config = require('../config.json');
 const prodEnv = "PRODUCTION";
 const textChat = ['text', 'dm', 'group'];
 
+//not sending these log to discord channel
+const ignore = {
+    error: {
+        names: null,
+        messages: [
+            'read ECONNRESET' //lost socket connection
+        ]
+    }
+}
+
 class ErrorLog {
     /**
      * @param {import('../chitanda')} client 
@@ -65,7 +75,7 @@ class ErrorLog {
         if (err.stack) {
             console.error(err.stack);
         } else if (err.message) {
-            console.error('[Error] ' + (err.name ? '' : `\`${err.name}\` `) + err.message);console.error(err.name)
+            console.error('[Error] ' + (err.name ? `\`${err.name}\` ` : '') + err.message);
         } else {
             console.error('[Error] ' + err);
         }
@@ -82,8 +92,10 @@ class ErrorLog {
                 if (this.client.channels.has(config.log.channel.error)) {
                     var channel = this.client.channels.get(config.log.channel.error);
                     if (textChat.includes(channel.type)) {
-                        if (err.name && err.message) {
-                            channel.send(`:x: \`${err.name}\` ${err.message}`);
+                        if (err.message) {
+                            if (!ignore.error.messages.includes(err.message)) {
+                                channel.send(`:x: ${err.name ? `\`${err.name}\` ` : ''} ${err.message}`);
+                            }
                         } else {
                             channel.send(`:x: ${err}`);
                         }

@@ -4,7 +4,11 @@ class ChatLog {
         else this.config = require('../config.json');
         this.client = client;
         if (!this.trackings) {
-            this.trackings = this.config.tracking;
+            if (this.config.tracking && this.config.tracking.length > 0) {
+                this.trackings = this.config.tracking;
+            } else {
+                this.trackings = [];
+            }
         }
     }
 
