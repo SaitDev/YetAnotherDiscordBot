@@ -8,7 +8,7 @@ const ErrorLog = require('./logger/errorlog')
 const CommandLog = require('./logger/commandLog')
 const ChatLog = require('./logger/chatLog')
 const GuildLog = require('./logger/guildLog')
-const MessageUtil = require('./util/messageUtil').default
+const MessageUtil = require('./util/messageUtil')
 
 class Chitanda extends Discord.Client {
     /**

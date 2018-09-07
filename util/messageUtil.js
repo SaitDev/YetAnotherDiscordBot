@@ -1,5 +1,3 @@
-import discord from 'discord.js';
-
 class MessageUtil {
     /**
      * @param {import('../chitanda')} client 
@@ -10,7 +8,7 @@ class MessageUtil {
 
     /**
      * Safely send a message to the same channel of another message
-     * @param {discord.Message} msg 
+     * @param {import('discord.js').Message} msg 
      * @param {*} content 
      */
     sendFromMessage(msg, content) {
@@ -19,7 +17,7 @@ class MessageUtil {
 
     /**
      * Safely send a message to a channel
-     * @param {discord.TextChannel | discord.DMChannel | discord.GroupDMChannel} channel 
+     * @param {import('discord.js').TextChannel | import('discord.js').DMChannel | import('discord.js').GroupDMChannel} channel 
      * @param {*} content 
      */
     sendFromChannel(channel, content) {
@@ -30,4 +28,4 @@ class MessageUtil {
     }
 }
 
-export default MessageUtil;
+module.exports = MessageUtil;
