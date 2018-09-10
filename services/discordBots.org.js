@@ -11,7 +11,7 @@ class DiscordBotOrg {
         this.listeners = [];
         this.service = new DBL(config.discordBotOrg.token,
             {
-                webhookPort: process.env.PORT || 5000,
+                webhookPort: 5000,
                 webhookAuth: config.discordBotOrg.webhookAuth
             },
             client
@@ -25,7 +25,7 @@ class DiscordBotOrg {
         });
 
         this.service.webhook.on('ready', hook => {
-            client.errorLogger.info(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`, true);
+            client.errorLogger.info(`Internal webhook running at http://${hook.hostname}:${hook.port}${hook.path}`, true);
         });
         this.service.webhook.on('vote', vote => {
             //TODO: remove these debug after success on production

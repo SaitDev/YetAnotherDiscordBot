@@ -16,5 +16,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Webhook running at ${path} on port ${port}`);
+    console.log(`[Info] Webhook running at ${path} on port ${port}`);
 })
