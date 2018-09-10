@@ -10,7 +10,7 @@
             "name": "development",
             "runtimeExecutable": "node",
             "env": {
-                "NODE_ENV": "development"
+                "CHITANDA_ENV": "development"
             },
             "runtimeArgs": [
                 "node_modules/nodemon/bin/nodemon.js",

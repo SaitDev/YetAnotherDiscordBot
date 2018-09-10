@@ -1,6 +1,6 @@
-const config = require('../config.json');
-const prodEnv = "PRODUCTION";
-const textChat = ['text', 'dm', 'group'];
+const config = require('../config.json')
+const util = require('../util/commonUtil')
+const textChat = ['text', 'dm', 'group']
 
 //not sending these log to discord channel
 const ignore = {
@@ -25,10 +25,7 @@ class ErrorLog {
         console.log('[Info] ' + message);
 
         try {
-            if (consoleOnly ||
-                !process.env.CHITANDA_ENV ||
-                process.env.CHITANDA_ENV.toUpperCase() != prodEnv
-            ) {
+            if (consoleOnly || !util.isProduction()) {
                 return;
             }
 
@@ -50,10 +47,7 @@ class ErrorLog {
         console.warn('[Warn] ' + message);
 
         try {
-            if (consoleOnly ||
-                !process.env.CHITANDA_ENV ||
-                process.env.CHITANDA_ENV.toUpperCase() != prodEnv
-            ) {
+            if (consoleOnly || !util.isProduction()) {
                 return;
             }
 
@@ -81,10 +75,7 @@ class ErrorLog {
         }
 
         try {
-            if (consoleOnly ||
-                !process.env.CHITANDA_ENV ||
-                process.env.CHITANDA_ENV.toUpperCase() != prodEnv
-            ) {
+            if (consoleOnly || !util.isProduction()) {
                 return;
             }
 
@@ -112,10 +103,7 @@ class ErrorLog {
         console.error(err.stack);
 
         try {
-            if (consoleOnly ||
-                !process.env.CHITANDA_ENV ||
-                process.env.CHITANDA_ENV.toUpperCase() != prodEnv
-            ) {
+            if (consoleOnly || !util.isProduction()) {
                 return;
             }
 

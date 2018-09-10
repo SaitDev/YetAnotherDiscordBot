@@ -10,6 +10,7 @@
 	"dmCommand": true,
 	"tracking": [],
 	"botname": "BotName",
+	"database": "mongodb-connection-uri",
 	"cleverbot": {
 		"user": "cleverbot.io_api_user",
 		"key": "cleverbot.io_api_key"

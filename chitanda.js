@@ -1,9 +1,11 @@
 const Discord = require('discord.js')
 
 const config = require('./config.json')
+const DatabaseFactory = require('./database/databaseFactory')
 const CommandManager = require('./managers/commandManager.js')
 const PresenceManager = require('./managers/presenceManager.js')
 const BotListingManager = require('./managers/botListingManager')
+const SchedulerManager = require('./managers/schedulerManager')
 const ErrorLog = require('./logger/errorlog')
 const CommandLog = require('./logger/commandLog')
 const ChatLog = require('./logger/chatLog')
@@ -17,8 +19,10 @@ class Chitanda extends Discord.Client {
      */
     constructor(cmdPath, options) {
         super(options);
-        this.ready = false
+        this.ready = false;
+        this.messageUtil = new MessageUtil(this);
         this.errorLogger = new ErrorLog(this);
+        this.database = new DatabaseFactory(this);
         this.commandManager = new CommandManager(this, cmdPath);
         this.presenceManager = new PresenceManager(this, config);
         // this.botListingManager = new BotListingManager(this);
@@ -26,7 +30,7 @@ class Chitanda extends Discord.Client {
         this.commandLogger = new CommandLog(this);
         this.chatLogger = new ChatLog(this);
         this.guildLogger = new GuildLog(this);
-        this.messageUtil = new MessageUtil(this);
+        this.schedulerManager = new SchedulerManager(this);
     }
 
     delayCreateBotListingManager() {
