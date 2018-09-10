@@ -13,6 +13,10 @@ const client = new Chitanda(cmdPath);
 client.once('ready', function() {
     client.errorLogger.info(`Login as ${client.user.username}`);
     client.commandManager.loadCommands();
+    client.database.connect()
+    .then(_ => {
+        client.database.guildSettingManager.loadSettings();
+    });
     client.presenceManager.start();
 });
 

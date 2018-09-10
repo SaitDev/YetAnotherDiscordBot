@@ -10,10 +10,11 @@
     "type": "git",
     "url": "https://github.com/SaitDev/YetAnotherDiscordBot.git"
   },
-  "main": "launcher.js",
+  "main": "bot.js",
   "scripts": {
-    "start": "node launcher.js",
-    "dev": "nodemon launcher.js"
+    "start": "node bot.js",
+    "web": "node web.js",
+    "dev": "nodemon bot.js"
   },
   "dependencies": {
     "@types/node": "^9.6.1",
@@ -21,6 +22,8 @@
     "cleverbot.io": "^1.0.4",
     "dblapi.js": "^2.2.0",
     "discord.js": "^11.3.2",
+    "express": "^4.16.3",
+    "express-http-proxy": "^1.2.0",
     "leetscript": "^1.1.0",
     "moment": "^2.22.2",
     "sync-request": "^6.0.0"

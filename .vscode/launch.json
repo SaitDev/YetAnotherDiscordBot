@@ -18,7 +18,7 @@
                 "js,json"
             ],
             "cwd": "${workspaceFolder}",
-            "program": "${workspaceFolder}/launcher.js",
+            "program": "${workspaceFolder}/bot.js",
             "console": "integratedTerminal",
             "restart": false,
             "internalConsoleOptions": "openOnFirstSessionStart"
