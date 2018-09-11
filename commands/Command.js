@@ -1,7 +1,8 @@
-const config = require('../config.json');
-const Embed = require('../util/embed');
+const config = require('../config.json')
+const Embed = require('../util/embed')
+const MessageUtil = require('../util/messageUtil')
 
-const nsfwGuide = 'https://i.imgur.com/cdakHFu.png';
+const nsfwGuide = 'https://i.imgur.com/cdakHFu.png'
 
 class Command {
 	/**
@@ -13,6 +14,7 @@ class Command {
 		Command.validateInfo(client, info, module);
 
 		this.client = client;
+		this.messageUtil = new MessageUtil(client);
 		this.name = info.name;
 		this.aliases = info.aliases;
 		this.description = info.description;
@@ -47,6 +49,27 @@ class Command {
 				this.run(msg, args);
 			}
 		}
+	}
+
+	/**
+	 * 
+	 * @param {import('discord.js').Message} msg 
+	 * @param {*} content 
+	 */
+	sendFromMessage(msg, content) {
+		this.sendFromChannel(msg.channel, content);
+	}
+
+	/**
+	 * 
+	 * @param {import('discord.js').Channel} channel 
+	 * @param {*} content 
+	 */
+	sendFromChannel(channel, content) {
+		channel.sendW(content)
+        .catch((err) => {
+            this.client.errorLogger.commandFail(err);
+        })
 	}
 
 	checkChannel(msg) {

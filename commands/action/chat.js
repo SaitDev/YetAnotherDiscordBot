@@ -1,7 +1,8 @@
-const Command = require('../Command');
-const cleverbot = require('../../services/cleverbot.io.js');
+const Command = require('../Command')
+const cleverbot = require('../../services/cleverbot.io.js')
 
-const Embed = require('../../util/embed');
+const Embed = require('../../util/embed')
+const stringUtil = require('../../util/stringUtil')
 
 const info = {
     name: "chat",
@@ -20,14 +21,30 @@ class Chat extends Command {
 		super(client, info, module);
 	}
 
+    /**
+     * 
+     * @param {import('discord.js').Message} msg 
+     * @param {string} args 
+     */
     run(msg, args) {
-        if (!args) return;
+        if (!args || !(stringUtil.removeSpace(this.client.messageUtil.removeMentions(msg, args)))) {
+            args = this.name;
+            var helpCommand = this.client.commandManager.commands.get('help');
+            if (helpCommand) {
+                helpCommand.execute(msg, args)
+            } else {
+                this.sendFromMessage(msg, 'Invalid arguments. Use command help to see usages');
+            }
+            return;
+        }
+
         msg.channel.startTyping();
         try {
+            args = this.client.messageUtil.replaceMentionMemberName(msg, args);
             cleverbot.ask(args, response => {
                 msg.channel.stopTyping();
                 if (response) {
-                    msg.channel.send({
+                    this.sendFromMessage(msg, {
                         embed: Embed.create(null, null, msg.author.toString() + ` ${response}`)
                     });
                 }

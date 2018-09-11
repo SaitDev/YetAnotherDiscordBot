@@ -26,6 +26,93 @@ class MessageUtil {
             this.client.errorLogger.error(err);
         })
     }
+
+    /**
+     * 
+     * @param {import('discord.js').Message} msg 
+     * @param {string} content 
+     */
+    removeMentions(msg, content) {
+        return this.removeMentionMember(
+            msg, this.removeMentionChannel(
+                msg, this.removeMentionRole(
+                    msg, content //this.removeMentionUser(msg, content)
+                    //TODO: why a user not guild member isnt in `msg.mentions.users`
+                )
+            )
+        );
+    }
+
+    /**
+     * 
+     * @param {import('discord.js').Message} msg 
+     * @param {string} content 
+     */
+    removeMentionMember(msg, content) {
+        if (msg.mentions.members.size > 0) {
+            console.log(msg.mentions.members.size + ' member')
+            msg.mentions.members.forEach((member, id) => {
+                content = content.replace(member.toString(), "");
+            });
+        }
+        return content;
+    }
+
+    /**
+     * 
+     * @param {import('discord.js').Message} msg 
+     * @param {string} content 
+     */
+    removeMentionChannel(msg, content) {
+        if (msg.mentions.channels.size > 0) {
+            msg.mentions.channels.forEach((channel, id) => {
+                content = content.replace(channel.toString(), "");
+            });
+        }
+        return content;
+    }
+    
+    /**
+     * 
+     * @param {import('discord.js').Message} msg 
+     * @param {string} content 
+     */
+    removeMentionRole(msg, content) {
+        if (msg.mentions.roles.size > 0) {
+            msg.mentions.roles.forEach((role, id) => {
+                content = content.replace(role.toString(), "");
+            });
+        }
+        return content;
+    }
+
+    /**
+     * 
+     * @param {import('discord.js').Message} msg 
+     * @param {string} content 
+     */
+    removeMentionUser(msg, content) {
+        if (msg.mentions.users.size > 0) {
+            msg.mentions.users.forEach((user, id) => {
+                content = content.replace(user.toString(), "");
+            });
+        }
+        return content;
+    }
+
+    /**
+     * 
+     * @param {import('discord.js').Message} msg 
+     * @param {string} content 
+     */
+    replaceMentionMemberName(msg, content) {
+        if (msg.mentions.members.size > 0) {
+            msg.mentions.members.forEach((member, id) => {
+                content = content.replace(member.toString(), member.displayName)
+            });
+        }
+        return content;
+    }
 }
 
 module.exports = MessageUtil;
