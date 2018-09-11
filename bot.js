@@ -16,7 +16,7 @@ client.once('ready', function() {
     client.database.connect()
     .then(_ => {
         client.schedulerManager.startAll();
-        // client.database.guildSettingManager.loadSettings();
+        client.database.guildSettingManager.loadSettings();
     });
     client.presenceManager.start();
 });

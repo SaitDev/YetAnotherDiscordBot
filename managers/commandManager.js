@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const Promise = require('bluebird');
+const bluebird = require('bluebird');
 const Discord = require('discord.js');
 const Collection = Discord.Collection;
 
@@ -8,11 +8,9 @@ class CommandManager {
     /**
      * @param {import('../chitanda')} client 
      * @param {string} cmdPath
-     * @param {*} customConfig 
      */
-    constructor(client, cmdPath, customConfig) {
-        if (customConfig) this.config = customConfig;
-        else this.config = require('../config.json');
+    constructor(client, cmdPath) {
+        this.config = require('../config.json');
         this.client = client;
         this.modules = new Collection();
         this.commands = new Collection();
@@ -30,7 +28,7 @@ class CommandManager {
         const modules = fs.readdirSync(this.cmdPath).filter(f => fs.statSync(path.join(this.cmdPath, f)).isDirectory());
 
         //module id is folder name
-        Promise.each(modules, (moduleId) => {
+        bluebird.each(modules, (moduleId) => {
             this.modules.set(moduleId, null);
             fs.readdirSync(path.join(this.cmdPath, moduleId)).forEach((file) => {
                 if (file.toLowerCase() == 'module.json') {
@@ -81,23 +79,34 @@ class CommandManager {
         });
     }
 
+    /**
+     * 
+     * @param {import('discord.js').Message} msg 
+     */
     handleMessage(msg) {
         if (!this.shouldHandle(msg)) return;
 
-        if (!this.config.dmCommand && msg.channel.type === 'dm') {
+        if (!this.config.dmCommand && (msg.channel.type === 'dm' || msg.channel.type === 'group')) {
             return;
         }
 
         var cmd;
-        if (msg.content.startsWith(this.config.prefix)) {
-            cmd = msg.content.substring(1, msg.content.length);
-        } else if (msg.content.startsWith(this.client.user.toString())) {
+        if (msg.content.startsWith(this.client.user.toString())) {
             cmd = msg.content.substring(this.client.user.toString().length + 1, msg.content.length);
             if (!cmd) return;
             if (!cmd.startsWith('help ') && cmd != 'help') {
                 cmd = 'chat ' + cmd;
             }
-        } else if (this.config.dmCommand && msg.channel.type === 'dm') {
+        } else if (msg.guild) {
+            var prefix = this.client.database.guildSettingManager.customPrefix.has(msg.guild.id) ? 
+                        this.client.database.guildSettingManager.customPrefix.get(msg.guild.id) :
+                        this.config.prefix;
+            if (msg.content.startsWith(prefix)) {
+                cmd = msg.content.substring(prefix.length, msg.content.length);
+            } else return;
+        } else if (msg.content.startsWith(this.config.prefix)) {
+            cmd = msg.content.substring(this.config.prefix.length, msg.content.length);
+        } else if (msg.channel.type === 'dm' || msg.channel.type === 'group') {
             cmd = msg.content;
         } else return;
 

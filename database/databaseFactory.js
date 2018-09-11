@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const config = require('../config.json')
+const GuildSettings = require('./user/guildSettings')
 
 class DatabaseFactory {
     /**
@@ -8,6 +9,7 @@ class DatabaseFactory {
      */
     constructor(client) {
         this.client = client;
+        this.guildSettingManager = new GuildSettings(this);
     }
 
     connect() {
