@@ -14,7 +14,7 @@ class Shutdown extends Command {
 	}
 
     run(msg, args) {
-        msg.channel.send('Bye world ಥʖ̯ಥ')
+        this.sendFromMessage(msg, 'Bye world ಥʖ̯ಥ')
         .then(message => process.exit(0));
     }
 }

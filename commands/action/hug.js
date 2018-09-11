@@ -40,7 +40,7 @@ class Hug extends Command {
                 message = `${this.client.user.toString()} hugs ${msg.author.toString()} (・ω・*)`
             }
         }
-        msg.channel.send({
+        this.sendFromMessage(msg, {
             embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('hug') : ramMoe.image('hug')),
                 msg.author.tag, message)
         });

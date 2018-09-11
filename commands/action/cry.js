@@ -20,7 +20,7 @@ class Cry extends Command {
     run(msg, args) {
         var message, link;
         message = `${msg.author.toString()} is crying ;-;`;
-        msg.channel.send({
+        this.sendFromMessage(msg, {
             embed: Embed.create(link ? link : ramMoe.image('cry'), msg.author.tag, message)
         });
     }

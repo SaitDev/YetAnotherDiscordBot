@@ -37,7 +37,7 @@ class Feed extends Command {
                 message = `${msg.author.toString()}, say aaaaaaaaaa`
             }
         }
-        msg.channel.send({
+        this.sendFromMessage(msg, {
             embed: Embed.create(nekoLife.image('feed'), msg.author.tag, message)
         });
     }

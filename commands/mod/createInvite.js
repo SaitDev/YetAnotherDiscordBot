@@ -44,7 +44,8 @@ class CreateInvite extends Command {
                 || (parse[0] !== "never" && parse[0] !== "unexpire" && !isNaN(parse[0]))
                 || (parse.length > 1 && !isNaN(parse[1])))
             {
-                return msg.channel.send("Error: Invalid arguments");
+                this.sendFromMessage(msg, "Error: Invalid arguments");
+                return;
             }
 
             if (parse[0] == 0 || parse[0] === "never" || parse[0] === "unexpire") {
@@ -67,8 +68,8 @@ class CreateInvite extends Command {
     create(inviteChannel, requestChannel, option)
     {
         inviteChannel.createInvite(option)
-            .then(invite => requestChannel.send("Invite created " + invite.url))
-            .catch(reason => requestChannel.send(["Error: Can not create invite", reason]));
+            .then(invite => this.sendFromChannel(requestChannel, "Invite created " + invite.url))
+            .catch(reason => this.sendFromChannel(requestChannel, ["Error: Can not create invite", reason]));
     }
 }
 

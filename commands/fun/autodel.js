@@ -18,7 +18,7 @@ class AutoDel extends Command {
         if (msg.deletable) {
             msg.delete();
         } else {
-            msg.channel.send('Require `Manage Messages` permission to delete')
+            this.sendFromMessage(msg, 'Require `Manage Messages` permission to delete')
         }
 	}
 }

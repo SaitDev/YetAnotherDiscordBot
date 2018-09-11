@@ -16,7 +16,7 @@ class Meow extends Command {
 	}
 
     run(msg, args) {
-        msg.channel.send(nekoLife.cat());
+        this.sendFromMessage(msg, nekoLife.cat());
     }
 }
 

@@ -34,7 +34,7 @@ class Pout extends Command {
         } else {
             message = `${msg.author.toString()} pouts. I wonder why`;
         }
-        msg.channel.send({
+        this.sendFromMessage(msg, {
             embed: Embed.create(link ? link : ramMoe.image('pout'), msg.author.tag, message)
         });
     }

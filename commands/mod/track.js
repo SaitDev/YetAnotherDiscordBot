@@ -16,13 +16,13 @@ class Track extends Command {
     run(msg, args) {
         if (msg.mentions.members.size > 0) {
             if (msg.mentions.members.first().id == this.client.user.id) {
-                msg.channel.send('what?');
+                this.sendFromMessage(msg, 'what?');
                 return;
             }
             this.client.chatLogger.track(msg.mentions.members.first().id);
-            msg.channel.send('OK ( ͡° ͜ʖ ͡°)');
+            this.sendFromMessage(msg, 'OK ( ͡° ͜ʖ ͡°)');
         } else {
-            msg.channel.send('Error: Invalid arguments');
+            this.sendFromMessage(msg, 'Error: Invalid arguments');
         }
     }
 }

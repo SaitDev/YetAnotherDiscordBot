@@ -40,11 +40,11 @@ class Command {
 	execute(msg, args) {
 		if (this.checkChannel(msg)) {
 			if (this.checkNsfw(msg)) {
-				msg.channel.send({
+				this.sendFromMessage(msg, {
 					embed: Embed.create(nsfwGuide, null, 'This command can only be used in nsfw channel')
 				});
 			} else if (this.ownerOnly && !config.owner.includes(msg.author.id)) {
-				msg.channel.send('You dont have permission to use this command');
+				this.sendFromMessage(msg, 'You dont have permission to use this command');
 			} else {
 				this.run(msg, args);
 			}
@@ -66,7 +66,7 @@ class Command {
 	 * @param {*} content 
 	 */
 	sendFromChannel(channel, content) {
-		channel.sendW(content)
+		channel.send(content)
         .catch((err) => {
             this.client.errorLogger.commandFail(err);
         })

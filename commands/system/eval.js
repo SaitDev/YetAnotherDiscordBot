@@ -21,7 +21,7 @@ class Eval extends Command {
         try {
             eval(args);
         } catch (err) {
-            msg.channel.send(`:skull_crossbones: \`${err.name}\` ${err.message}`);
+            this.sendFromMessage(msg, `:skull_crossbones: \`${err.name}\` ${err.message}`);
         }
     }
 }

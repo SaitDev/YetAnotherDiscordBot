@@ -32,7 +32,7 @@ class Broken extends Command {
             }
             message += '   ';
         }
-        msg.channel.send(message)
+        this.sendFromMessage(msg, message)
     }
 }
 

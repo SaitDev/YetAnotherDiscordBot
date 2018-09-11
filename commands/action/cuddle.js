@@ -40,7 +40,7 @@ class Cuddle extends Command {
                 message = `${this.client.user.toString()} cuddles ${msg.author.toString()} (・ω・*)`
             }
         }
-        msg.channel.send({
+        this.sendFromMessage(msg, {
             embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('cuddle') : ramMoe.image('cuddle')),
                 msg.author.tag, message)
         });

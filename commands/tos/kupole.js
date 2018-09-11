@@ -25,9 +25,9 @@ class Kupole extends Command {
 
     run(msg, args) {
         if (!args || !this.emoji.has(args)) {
-            msg.channel.send(this.emojiList());
+            this.sendFromMessage(msg, this.emojiList());
         } else {
-            msg.channel.send({
+            this.sendFromMessage(msg, {
                 embed: Embed.create(this.emoji.get(args), msg.author.tag)
             })
         }

@@ -16,9 +16,9 @@ class Untrack extends Command {
     run(msg, args) {
         if (msg.mentions.members.size > 0) {
             this.client.chatLogger.untrack(msg.mentions.members.first().id);
-            msg.channel.send(':ok:');
+            this.sendFromMessage(msg, ':ok:');
         } else {
-            msg.channel.send('Error: Invalid arguments');
+            this.sendFromMessage(msg, 'Error: Invalid arguments');
         }
     }
 }

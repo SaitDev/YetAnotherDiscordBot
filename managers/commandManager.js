@@ -21,7 +21,7 @@ class CommandManager {
 
     loadCommands() {
         if (!fs.existsSync(this.cmdPath)) {
-            console.error('commands not found');
+            this.client.errorLogger.error('commands not found');
             return;
         }
 
@@ -63,7 +63,7 @@ class CommandManager {
                             throw new Error('Alias cannot be same with any command name');
                         } else {
                             if (this.aliases.has(alias)) {
-                                console.warn('[Warn] Overlap command alises will be overwritten');
+                                this.client.errorLogger.warn('Overlap command alises will be overwritten');
                             }
                             this.aliases.set(alias, cmd);
                         }
@@ -72,9 +72,9 @@ class CommandManager {
             }
         }).then(() => {
             this.client.ready = true;
-            console.log(`[Info] All commands loaded for ${this.client.user.username}!`);
+            this.client.errorLogger.info(`All commands loaded for ${this.client.user.username}!`, true);
         }).catch((err) => {
-            console.error(err.stack);
+            this.client.errorLogger.error(err.stack);
             process.exit(1);
         });
     }
@@ -114,13 +114,13 @@ class CommandManager {
         if (result.isCommand) {
             try {
                 this.client.commandLogger.cmdRequested(msg);
+                if (result.isAlias) {
+                    this.aliases.get(result.name).execute(msg, result.args);
+                } else {
+                    this.commands.get(result.name).execute(msg, result.args);
+                }
             } catch (err) {
-                console.error(err.stack)
-            }
-            if (result.isAlias) {
-                this.aliases.get(result.name).execute(msg, result.args);
-            } else {
-                this.commands.get(result.name).execute(msg, result.args)
+                this.client.errorLogger.error(err.stack);
             }
         }
     }

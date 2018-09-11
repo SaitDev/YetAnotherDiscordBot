@@ -19,7 +19,7 @@ class Kitsune16 extends Command {
 	}
 
     run(msg, args) {
-        msg.channel.send({
+        this.sendFromMessage(msg, {
             embed: Embed.create(nekoLife.image('erok'), msg.author.tag)
         });
     }

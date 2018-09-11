@@ -22,17 +22,17 @@ class BigTextD extends Command {
             if ((this.filter.containBot(msg, args) || await this.filter.containOwner(msg, args)) &&
                 msg.author.id != this.client.user.id
             ) {
-                msg.channel.send(':thinking:');
+                this.sendFromMessage(msg, ':thinking:');
             } else {
                 if (!msg.deletable) {
-                    msg.channel.send('Error: Require `Manage Messages` to delete your text');
+                    this.sendFromMessage(msg, 'Error: Require `Manage Messages` to delete your text');
                 } else {
                     msg.delete();
-                    msg.channel.send(emoji.textToIcon(args));
+                    this.sendFromMessage(msg, emoji.textToIcon(args));
                 }
             }
         } else {
-            msg.channel.send('Error: Invalid arguments')
+            this.sendFromMessage(msg, 'Error: Invalid arguments')
         }
 
 

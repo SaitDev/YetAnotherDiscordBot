@@ -18,7 +18,7 @@ class Nom extends Command {
 	}
 
     run(msg, args) {
-        msg.channel.send({
+        this.sendFromMessage(msg, {
             embed: Embed.create(ramMoe.image('nom'), msg.author.tag)
         });
     }

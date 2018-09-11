@@ -22,12 +22,12 @@ class BigText extends Command {
 			if ((this.filter.containBot(msg, args) || await this.filter.containOwner(msg, args)) && 
 				msg.author.id != this.client.user.id
 			) {
-				msg.channel.send(':thinking:');
+				this.sendFromMessage(msg, ':thinking:');
 			} else {
-				msg.channel.send(emoji.textToIcon(args));
+				this.sendFromMessage(msg, emoji.textToIcon(args));
 			}
 		} else {
-			msg.channel.send('Error: Invalid arguments')
+			this.sendFromMessage(msg, 'Error: Invalid arguments')
 		}
 	}
 }
