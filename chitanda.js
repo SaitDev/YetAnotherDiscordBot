@@ -20,8 +20,8 @@ class Chitanda extends Discord.Client {
     constructor(cmdPath, options) {
         super(options);
         this.ready = false;
-        this.messageUtil = new MessageUtil(this);
         this.errorLogger = new ErrorLog(this);
+        this.messageUtil = new MessageUtil(this);
         this.database = new DatabaseFactory(this);
         this.commandManager = new CommandManager(this, cmdPath);
         this.presenceManager = new PresenceManager(this, config);

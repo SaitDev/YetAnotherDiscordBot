@@ -1,7 +1,9 @@
 class ChatLog {
-    constructor(client, customConfig) {
-        if (customConfig) this.config = customConfig;
-        else this.config = require('../config.json');
+    /**
+     * @param {import('../chitanda')} client 
+     */
+    constructor(client) {
+        this.config = require('../config.json');
         this.client = client;
         if (!this.trackings) {
             if (this.config.tracking && this.config.tracking.length > 0) {
@@ -42,13 +44,13 @@ class ChatLog {
         }
 
         if (this.trackings.includes(msg.author.id)) {
-            msg.channel.send('`' + msg.author.username + ' \'s message is deleted:` ' + msg.content);
+            this.client.messageUtil.sendFromMessage(msg, '`' + msg.author.username + ' \'s message is deleted:` ' + msg.content);
             var links = '';
             if (msg.attachments.size != 0) {
                 msg.attachments.forEach(element => {
                     links += element.proxyURL + '\n'
                 });
-                if (links) msg.channel.send(links);
+                if (links) this.client.messageUtil.sendFromMessage(msg, links);
             }
         }
     }
@@ -72,13 +74,18 @@ class ChatLog {
         }
 
         if (this.trackings.includes(oldMsg.author.id)) {
-            oldMsg.channel.send('`' + oldMsg.author.username + ' \'s message(' + oldMsg.id + ') is editted:` ' + oldMsg.content);
+            this.client.messageUtil.sendFromMessage(
+                oldMsg, 
+                '`' + oldMsg.author.username + ' \'s message(' + oldMsg.id + ') is editted:` ' + oldMsg.content
+            );
             var links = '';
             if (oldMsg.attachments.size != 0) {
                 oldMsg.attachments.forEach(element => {
                     links += element.proxyURL + '\n'
                 });
-                if (links) oldMsg.channel.send(links);
+                if (links) {
+                    this.client.messageUtil.sendFromMessage(oldMsg, links);
+                }
             }
         }
     }

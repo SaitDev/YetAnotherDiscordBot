@@ -83,4 +83,7 @@ client.on('guildDelete', (guild) => {
     }
 });
 
-client.login(config.token);
+client.login(config.token)
+.catch(err => {
+    client.errorLogger.error(err, true);
+});

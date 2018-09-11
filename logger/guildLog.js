@@ -1,5 +1,6 @@
-const config = require('../config.json');
-const textChat = ['text', 'dm', 'group'];
+const messageUtil = require('../util/messageUtil')
+const config = require('../config.json')
+const textChat = ['text', 'dm', 'group']
 
 class GuildLog {
     /**
@@ -18,7 +19,10 @@ class GuildLog {
             if (this.client.channels.has(config.log.channel.guilds)) {
                 var channel = this.client.channels.get(config.log.channel.guilds);
                 if (textChat.includes(channel.type)) {
-                    channel.send(`:tada: :new: Joined guild ${guild.name} \`${guild.id}\``);
+                    this.client.messageUtil.sendFromChannel(
+                        channel, 
+                        `:tada: :new: Joined guild ${guild.name} \`${guild.id}\``
+                    );
                 }
             }
         }
@@ -33,7 +37,10 @@ class GuildLog {
             if (this.client.channels.has(config.log.channel.guilds)) {
                 var channel = this.client.channels.get(config.log.channel.guilds);
                 if (textChat.includes(channel.type)) {
-                    channel.send(`:footprints: Left guild ${guild.name} \`${guild.id}\``);
+                    this.client.messageUtil.sendFromChannel(
+                        channel, 
+                        `:footprints: Left guild ${guild.name} \`${guild.id}\``
+                    );
                 }
             }
         }

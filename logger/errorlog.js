@@ -33,7 +33,10 @@ class ErrorLog {
                 if (this.client.channels.has(config.log.channel.info)) {
                     var channel = this.client.channels.get(config.log.channel.info);
                     if (textChat.includes(channel.type)) {
-                        channel.send(`:white_check_mark: ${message}`);
+                        channel.send(`:white_check_mark: ${message}`)
+                        .catch(err => {
+                            console.error(err.stack);
+                        })
                     }
                 }
             }
@@ -55,7 +58,10 @@ class ErrorLog {
                 if (this.client.channels.has(config.log.channel.warn)) {
                     var channel = this.client.channels.get(config.log.channel.warn);
                     if (textChat.includes(channel.type)) {
-                        channel.send(`:x: ${err}`);
+                        channel.send(`:warning: ${err}`)
+                        .catch(err => {
+                            console.error(err.stack);
+                        })
                     }
                 }
             }
@@ -85,10 +91,16 @@ class ErrorLog {
                     if (textChat.includes(channel.type)) {
                         if (err.message) {
                             if (!ignore.error.messages.includes(err.message)) {
-                                channel.send(`:x: ${err.name ? `\`${err.name}\` ` : ''} ${err.message}`);
+                                channel.send(`:x: ${err.name ? `\`${err.name}\` ` : ''} ${err.message}`)
+                                .catch(err => {
+                                    console.error(err.stack);
+                                })
                             }
                         } else {
-                            channel.send(`:x: ${err}`);
+                            channel.send(`:x: ${err}`)
+                            .catch(err => {
+                                console.error(err.stack);
+                            })
                         }
                     }
                 }
@@ -112,9 +124,15 @@ class ErrorLog {
                     var channel = this.client.channels.get(config.log.channel.cmdError);
                     if (textChat.includes(channel.type)) {
                         if (err.name && err.message) {
-                            channel.send(`:x: \`${err.name}\` ${err.message}`);
+                            channel.send(`:x: \`${err.name}\` ${err.message}`)
+                            .catch(err => {
+                                console.error(err.stack);
+                            })
                         } else {
-                            channel.send(`:x: ${err}`);
+                            channel.send(`:x: ${err}`)
+                            .catch(err => {
+                                console.error(err.stack);
+                            })
                         }
                     }
                 }

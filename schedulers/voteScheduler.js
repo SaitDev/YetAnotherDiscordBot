@@ -22,6 +22,10 @@ class VoteScheduler {
         this.scheduler = new agenda();
         this.started = false;
 
+        this.scheduler.on('error', err => {
+            this.client.errorLogger.error(err);
+        })
+
         this.scheduler.define(jobName, (job, done) => {
             var userId = job.attrs.data.body.user;
             var isWeekend = job.attrs.data.body.isWeekend;
@@ -41,11 +45,11 @@ class VoteScheduler {
         }
 
         this.scheduler.mongo(mongoose.connection.db, collection);
-        this.scheduler.processEvery(checkJobEvery);
         //first time start delay to reduce heavy load
         if (!this.started) {
             await bluebird.delay(delayStart);
         }
+        this.scheduler.processEvery(checkJobEvery);
         await this.scheduler.start()
         .then(() => {
             this.started = true;
@@ -88,9 +92,9 @@ VoteScheduler.voteCollection = collection;
  * @param {import('discord.js').DMChannel} dmChannel 
  * @param {import('discord.js').User} user 
  */
-var sendThank = function(client, dmChannel, user) {
+var sendThank = function (client, dmChannel, user) {
     client.messageUtil.sendFromChannel(
-        dmChannel, 
+        dmChannel,
         messages[Math.floor(Math.random() * messages.length)]
     );
 }
