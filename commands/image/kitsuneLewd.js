@@ -5,24 +5,24 @@ const nekoLife = new NekoLife();
 const Embed = require('../../util/embed');
 
 const info = {
-    name: "holo18+",
+    name: "kitsunelewd",
     aliases: [],
-    description: "#nsfw",
+    description: "#nsfw fox girls",
     runIn: ["text", "dm"],
     isNSFW: true,
     ownerOnly: false
 }
 
-class Holo18 extends Command {
+class Kitsune16 extends Command {
     constructor(client, module) {
 		super(client, info, module);
 	}
 
     run(msg, args) {
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('hololewd'), msg.author.tag)
+            embed: Embed.create(nekoLife.image('erok'), msg.author.tag)
         });
     }
 }
 
-module.exports = Holo18;
+module.exports = Kitsune16;
