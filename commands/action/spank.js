@@ -8,7 +8,7 @@ const whyGif = 'https://media.giphy.com/media/s239QJIh56sRW/giphy.gif';
 const info = {
     name: "spank",
     aliases: [],
-    description: "Spank those weebs (may be #nsfw)",
+    description: "Spank those weebs (could be #nsfw)",
     runIn: ["text", "dm"],
     isNSFW: true,
     ownerOnly: false

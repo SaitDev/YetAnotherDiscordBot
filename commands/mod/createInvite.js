@@ -2,8 +2,15 @@ const Command = require('../Command.js')
 
 const info = {
     name: "createinvite",
-    aliases: ["newinvite"],
-    description: "Create new invite to a channel",
+    aliases: ["newinvite", "invitecreate"],
+    description: "Create an invite to a channel",
+    usages: [
+        "/createinvite",
+        "/createinvite #channel",
+        "/createinvite #channel number-expire-after-secends number-limited-uses",
+        "/createinvite #channel 86400 10",
+        "/createinvite #channel never"
+    ],
     runIn: ["text", "dm"],
     ownerOnly: true
 }

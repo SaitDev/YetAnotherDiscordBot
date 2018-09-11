@@ -6,6 +6,11 @@ const info = {
     name: "help",
     aliases: ["h", "?"],
     description: "Helping to use commands",
+    usages: [
+        "/help",
+        "/help command-name",
+        "/help module-name"
+    ],
     runIn: ["text", "dm"],
     ownerOnly: false
 }

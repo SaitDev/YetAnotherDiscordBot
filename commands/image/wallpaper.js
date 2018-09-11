@@ -7,7 +7,7 @@ const Embed = require('../../util/embed');
 const info = {
     name: "wallpaper",
     aliases: [],
-    description: "Suggesting wallpaper (may be #nsfw)",
+    description: "Suggesting wallpaper (could be #nsfw)",
     runIn: ["text", "dm"],
     isNSFW: true,
     ownerOnly: false
