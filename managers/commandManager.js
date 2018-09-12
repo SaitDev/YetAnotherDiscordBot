@@ -12,9 +12,20 @@ class CommandManager {
     constructor(client, cmdPath) {
         this.config = require('../config.json');
         this.client = client;
+
+        /**
+         * @type {import('discord.js').Collection<string, *>}
+         */
         this.modules = new Collection();
+        /**
+         * @type {import('discord.js').Collection<string, import('../commands/Command')>}
+         */
         this.commands = new Collection();
+        /**
+         * @type {import('discord.js').Collection<string, import('../commands/Command')>}
+         */
         this.aliases = new Collection();
+
         this.cmdPath = cmdPath;
         this.longestName = '';
     }
@@ -48,7 +59,7 @@ class CommandManager {
                 }
 
                 if (this.commands.has(cmd.name)) {
-                    throw new Error('Duplicate command name');
+                    throw new Error(`Duplicate command name [${cmd.name}]`);
                 }
                 this.commands.set(cmd.name, cmd);
                 if (cmd.name.length > this.longestName.length) {
@@ -60,7 +71,7 @@ class CommandManager {
                 if (cmd.aliases && Array.isArray(cmd.aliases) && cmd.aliases.length > 0) {
                     cmd.aliases.forEach(alias => {
                         if (this.commands.has(alias)) {
-                            throw new Error('Alias cannot be same with any command name');
+                            throw new Error(`Alias cannot be same with any command name ${alias}`);
                         } else {
                             if (this.aliases.has(alias)) {
                                 this.client.errorLogger.warn('Overlap command alises will be overwritten');
@@ -82,18 +93,19 @@ class CommandManager {
     /**
      * 
      * @param {import('discord.js').Message} msg 
+     * @returns {boolean}
      */
     handleMessage(msg) {
-        if (!this.shouldHandle(msg)) return;
+        if (!this.shouldHandle(msg)) return false;
 
         if (!this.config.dmCommand && (msg.channel.type === 'dm' || msg.channel.type === 'group')) {
-            return;
+            return false;
         }
 
         var cmd;
         if (msg.content.startsWith(this.client.user.toString())) {
             cmd = msg.content.substring(this.client.user.toString().length + 1, msg.content.length);
-            if (!cmd) return;
+            if (!cmd) return false;
             if (!cmd.startsWith('help ') && cmd != 'help') {
                 cmd = 'chat ' + cmd;
             }
@@ -103,12 +115,12 @@ class CommandManager {
                         this.config.prefix;
             if (msg.content.startsWith(prefix)) {
                 cmd = msg.content.substring(prefix.length, msg.content.length);
-            } else return;
+            } else return false;
         } else if (msg.content.startsWith(this.config.prefix)) {
             cmd = msg.content.substring(this.config.prefix.length, msg.content.length);
         } else if (msg.channel.type === 'dm' || msg.channel.type === 'group') {
             cmd = msg.content;
-        } else return;
+        } else return false;
 
         var result = this.parse(cmd);
         if (result.isCommand) {
@@ -119,9 +131,12 @@ class CommandManager {
                 } else {
                     this.commands.get(result.name).execute(msg, result.args);
                 }
+                return true;
             } catch (err) {
                 this.client.errorLogger.error(err.stack);
             }
+        } else {
+            return false;
         }
     }
 

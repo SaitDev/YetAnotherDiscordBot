@@ -50,7 +50,6 @@ class MessageUtil {
      */
     removeMentionMember(msg, content) {
         if (msg.mentions.members.size > 0) {
-            console.log(msg.mentions.members.size + ' member')
             msg.mentions.members.forEach((member, id) => {
                 content = content.replace(member.toString(), "");
             });

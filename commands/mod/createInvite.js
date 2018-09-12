@@ -1,15 +1,16 @@
 const Command = require('../Command.js')
+const common = require('../../util/commonUtil')
 
 const info = {
     name: "createinvite",
     aliases: ["newinvite", "invitecreate"],
     description: "Create an invite to a channel",
     usages: [
-        "/createinvite",
-        "/createinvite #channel",
-        "/createinvite #channel number-expire-after-secends number-limited-uses",
-        "/createinvite #channel 86400 10",
-        "/createinvite #channel never"
+        common.prefixPattern + "createinvite",
+        common.prefixPattern + "createinvite #channel",
+        common.prefixPattern + "createinvite #channel number-expire-after-secends number-limited-uses",
+        common.prefixPattern + "createinvite #channel 86400 10",
+        common.prefixPattern + "createinvite #channel never"
     ],
     runIn: ["text", "dm"],
     ownerOnly: true

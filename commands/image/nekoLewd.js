@@ -6,7 +6,7 @@ const Embed = require('../../util/embed');
 const Util = require('../../util/commonUtil')
 
 const info = {
-    name: "neko16+",
+    name: "nekolewd",
     aliases: [],
     description: "#nsfw catgirls",
     runIn: ["text", "dm"],

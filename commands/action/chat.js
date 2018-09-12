@@ -2,15 +2,15 @@ const Command = require('../Command')
 const cleverbot = require('../../services/cleverbot.io.js')
 
 const Embed = require('../../util/embed')
-const stringUtil = require('../../util/stringUtil')
+const common = require('../../util/commonUtil')
 
 const info = {
     name: "chat",
     aliases: [],
     description: "Chat with Chitanda",
     usages: [
-        "/chat text",
-        "@Mention#Chitanda text"
+        common.prefixPattern + "chat text",
+        common.mentionBotPattern + " text"
     ],
     runIn: ["text", "dm"],
     ownerOnly: false
@@ -27,7 +27,7 @@ class Chat extends Command {
      * @param {string} args 
      */
     run(msg, args) {
-        if (!args || !(stringUtil.removeSpace(this.client.messageUtil.removeMentions(msg, args)))) {
+        if (!args || !(this.client.messageUtil.removeMentions(msg, args).removeSpace())) {
             args = this.name;
             var helpCommand = this.client.commandManager.commands.get('help');
             if (helpCommand) {

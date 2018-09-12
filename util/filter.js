@@ -1,5 +1,3 @@
-const stringUtil = require('./stringUtil')
-
 class Filter {
     constructor(client, config) {
         this.client = client;
@@ -13,11 +11,11 @@ class Filter {
     containBot(msg, args) {
         if (!msg.content) return false;
 
-        var content = stringUtil.simplify(args);
+        var content = args.simplify();
 
         var usernameParts = this.client.user.username.split(' ');
         for (var i = 0; i < usernameParts.length; i++) {
-            if (content.includes(stringUtil.simplify(usernameParts[i]))) {
+            if (content.includes(usernameParts[i].simplify())) {
                 return true;
             }
         }
@@ -25,7 +23,7 @@ class Filter {
         if (msg.guild && msg.guild.me.nickname) {
             var nicknameParts = msg.guild.me.nickname.split(' ');
             for (var i = 0; i < nicknameParts.length; i++) {
-                if (content.includes(stringUtil.simplify(nicknameParts[i]))) {
+                if (content.includes(nicknameParts[i].simplify())) {
                     return true;
                 }
             }
@@ -36,7 +34,7 @@ class Filter {
 
     async containOwner(msg, args) {
         if (args && this.config.owner && this.config.owner.length > 0) {
-            var content = stringUtil.simplify(args);
+            var content = args.simplify();
 
             for (var i = 0; i < this.config.owner.length; i++) {
                 var contained = await this.client.fetchUser(this.config.owner[i])
@@ -44,7 +42,7 @@ class Filter {
                         if (!user || !user.username) return false;
                         var usernameParts = user.username.split(' ');
                         for (var i = 0; i < usernameParts.length; i++) {
-                            var part = stringUtil.simplify(usernameParts[i]);
+                            var part = usernameParts[i].simplify();
                             if (part && content.includes(part)) {
                                 return true;
                             }

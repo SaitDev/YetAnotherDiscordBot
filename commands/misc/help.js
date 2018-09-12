@@ -1,15 +1,17 @@
 const Command = require('../Command.js')
 const Embed = require('../../util/embed')
 const config = require('../../config')
+const common = require('../../util/commonUtil')
 
 const info = {
     name: "help",
     aliases: ["h", "?"],
     description: "Helping to use commands",
     usages: [
-        "/help",
-        "/help command-name",
-        "/help module-name"
+        common.prefixPattern + "help",
+        common.mentionBotPattern + " help", //there is one space
+        common.prefixPattern + "help command-name",
+        common.prefixPattern + "help module-name"
     ],
     runIn: ["text", "dm"],
     ownerOnly: false
@@ -29,6 +31,13 @@ class Help extends Command {
         var title;
         var message;
         var fields;
+        var prefix = config.prefix; 
+        if (msg.guild) {
+            if (this.client.database.guildSettingManager.customPrefix.has(msg.guild.id)) {
+                prefix = this.client.database.guildSettingManager.customPrefix.get(msg.guild.id);
+            }
+        }
+
         if (args) {
             if (this.client.commandManager.modules.has(args)) {
                 fields = this.generateModuleHelp(args);
@@ -36,11 +45,11 @@ class Help extends Command {
                     title = `Module ${args}`;
                 }
             } else if (this.client.commandManager.commands.has(args)) {
-                fields = this.generateCommandHelp(args);
+                fields = this.generateCommandHelp(args, prefix);
                 title = `Command ${args}`;
                 message = this.client.commandManager.commands.get(args).description;
             } else if (this.client.commandManager.aliases.has(args)) {
-                fields = this.generateCommandHelp(args);
+                fields = this.generateCommandHelp(args, prefix);
                 title = `Command ${this.client.commandManager.aliases.get(args).name}`;
                 message = this.client.commandManager.aliases.get(args).description;
             }
@@ -49,7 +58,7 @@ class Help extends Command {
             fields = this.generateGeneralHelp();
             message = config.support ? `[Support server](${config.support})\n` : '';
             message += `Version: \`${config.version}\`` +
-                `\nUse \`${config.prefix}help name\` to get more details`;
+                `\nUse \`${prefix}help name\` to get more details`;
         }
         this.sendFromMessage(msg, {
             embed: Embed.create(null, null, message, title, fields)
@@ -95,7 +104,7 @@ class Help extends Command {
         return fields;
     }
 
-    generateCommandHelp(commandId) {
+    generateCommandHelp(commandId, prefix) {
         var fields = [];
         var command = this.client.commandManager.commands.get(commandId);
         if (!command) {
@@ -109,7 +118,11 @@ class Help extends Command {
             fields.push(Embed.createField('Aliases', command.aliases.join(', ')));
         }
         if (command.usages && command.usages.length > 0) {
-            fields.push(Embed.createField('Usages', command.usages.join('\n')))
+            fields.push(Embed.createField('Usages', 
+                command.usages.join('\n')
+                .replaceAll('%prefix%', prefix)
+                .replaceAll('%mentionBot%', this.client.user.toString())
+            ));
         }
         return fields;
     }

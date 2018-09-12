@@ -1,16 +1,17 @@
-exports.simplify = (message) => {
-    if (typeof message === 'undefined' || message == null) return message;
-    return exports.removeNonLatin(exports.removeSpace(message))
+String.prototype.replaceAll = function(search, replacement) {
+    return this.replace(new RegExp(search, 'g'), replacement);
+}
+
+String.prototype.simplify = function() {
+    return this.removeNonLatin().removeSpace()
         .replace('.', '').replace('-', '').replace('_', '')
         .toUpperCase();
 }
 
-exports.removeSpace = (message) => {
-    if (typeof message === 'undefined' || message == null) return message;
-    return message.replace(/\s/g, '');
+String.prototype.removeSpace = function() {
+    return this.replace(/\s/g, '');
 }
 
-exports.removeNonLatin = (message) => {
-    if (typeof message === 'undefined' || message == null) return message;
-    return message.replace(/([^\x00-\xFF]|\s)*$/g, '');
+String.prototype.removeNonLatin = function() {
+    return this.replace(/([^\x00-\xFF]|\s)*$/g, '');
 }

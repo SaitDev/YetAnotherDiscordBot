@@ -11,6 +11,7 @@ const CommandLog = require('./logger/commandLog')
 const ChatLog = require('./logger/chatLog')
 const GuildLog = require('./logger/guildLog')
 const MessageUtil = require('./util/messageUtil')
+const stringUtil = require('./util/stringUtil') //inject some utilities to all String
 
 class Chitanda extends Discord.Client {
     /**
