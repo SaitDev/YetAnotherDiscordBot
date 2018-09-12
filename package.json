@@ -1,6 +1,6 @@
 {
   "name": "DiscordBot",
-  "version": "0.3.0-SNAPSHOT",
+  "version": "0.4.0-SNAPSHOT",
   "author": "SaitDev",
   "homepage": "https://discordbots.org/bot/468364281864257556",
   "bugs": {
@@ -28,6 +28,7 @@
     "leetscript": "^1.1.0",
     "moment": "^2.22.2",
     "mongoose": "^5.2.13",
+    "request": "^2.88.0",
     "sync-request": "^6.0.0"
   },
   "devDependencies": {
