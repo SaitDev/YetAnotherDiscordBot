@@ -126,15 +126,16 @@ class CommandManager {
         if (result.isCommand) {
             try {
                 this.client.commandLogger.cmdRequested(msg);
-                if (result.isAlias) {
-                    this.aliases.get(result.name).execute(msg, result.args);
-                } else {
-                    this.commands.get(result.name).execute(msg, result.args);
-                }
-                return true;
             } catch (err) {
                 this.client.errorLogger.error(err.stack);
             }
+            //error here will be caught by main wrapper of command process
+            if (result.isAlias) {
+                this.aliases.get(result.name).execute(msg, result.args);
+            } else {
+                this.commands.get(result.name).execute(msg, result.args);
+            }
+            return true;
         } else {
             return false;
         }

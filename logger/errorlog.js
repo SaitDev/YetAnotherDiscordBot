@@ -1,6 +1,9 @@
 const config = require('../config.json')
 const util = require('../util/commonUtil')
 const textChat = ['text', 'dm', 'group']
+const infoPrefix = '[Info] '
+const warnPrefix = '[Warn] '
+const errorPrefix = '[Error] '
 
 //not sending these log to discord channel
 const ignore = {
@@ -22,7 +25,7 @@ class ErrorLog {
 
     info(message, consoleOnly) {
         if (!message) return;
-        console.log('[Info] ' + message);
+        console.log(infoPrefix + message);
 
         try {
             if (consoleOnly || !util.isProduction()) {
@@ -35,19 +38,19 @@ class ErrorLog {
                     if (textChat.includes(channel.type)) {
                         channel.send(`:white_check_mark: ${message}`)
                         .catch(err => {
-                            console.error(err.stack);
+                            console.error(errorPrefix + err.stack);
                         })
                     }
                 }
             }
         } catch (err) {
-            console.error(err.stack);
+            console.error(errorPrefix + err.stack);
         }
     }
 
     warn(message, consoleOnly) {
         if (!message) return;
-        console.warn('[Warn] ' + message);
+        console.warn(warnPrefix + message);
 
         try {
             if (consoleOnly || !util.isProduction()) {
@@ -60,24 +63,24 @@ class ErrorLog {
                     if (textChat.includes(channel.type)) {
                         channel.send(`:warning: ${err}`)
                         .catch(err => {
-                            console.error(err.stack);
+                            console.error(errorPrefix + err.stack);
                         })
                     }
                 }
             }
         } catch (e) {
-            console.error(e.stack);
+            console.error(errorPrefix + e.stack);
         }
     }
 
     error(err, consoleOnly) {
         if (!err) return;
         if (err.stack) {
-            console.error(err.stack);
+            console.error(errorPrefix + err.stack);
         } else if (err.message) {
-            console.error('[Error] ' + (err.name ? `\`${err.name}\` ` : '') + err.message);
+            console.error(errorPrefix + (err.name ? `\`${err.name}\` ` : '') + err.message);
         } else {
-            console.error('[Error] ' + err);
+            console.error(errorPrefix + err);
         }
 
         try {
@@ -93,26 +96,26 @@ class ErrorLog {
                             if (!ignore.error.messages.includes(err.message)) {
                                 channel.send(`:x: ${err.name ? `\`${err.name}\` ` : ''} ${err.message}`)
                                 .catch(err => {
-                                    console.error(err.stack);
+                                    console.error(errorPrefix + err.stack);
                                 })
                             }
                         } else {
                             channel.send(`:x: ${err}`)
                             .catch(err => {
-                                console.error(err.stack);
+                                console.error(errorPrefix + err.stack);
                             })
                         }
                     }
                 }
             }
         } catch (e) {
-            console.error(e.stack);
+            console.error(errorPrefix + e.stack);
         }
     }
 
     commandFail(err, consoleOnly) {
         if (!err) return;
-        console.error(err.stack);
+        console.error(errorPrefix + err.stack);
 
         try {
             if (consoleOnly || !util.isProduction()) {
@@ -126,19 +129,19 @@ class ErrorLog {
                         if (err.name && err.message) {
                             channel.send(`:x: \`${err.name}\` ${err.message}`)
                             .catch(err => {
-                                console.error(err.stack);
+                                console.error(errorPrefix + err.stack);
                             })
                         } else {
                             channel.send(`:x: ${err}`)
                             .catch(err => {
-                                console.error(err.stack);
+                                console.error(errorPrefix + err.stack);
                             })
                         }
                     }
                 }
             }
         } catch (e) {
-            console.error(e.stack);
+            console.error(errorPrefix + e.stack);
         }
     }
 }

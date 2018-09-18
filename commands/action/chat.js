@@ -51,6 +51,7 @@ class Chat extends Command {
             });
         } catch (err) {
             msg.channel.stopTyping();
+            this.client.errorLogger.commandFail(err);
         }
     }
 }

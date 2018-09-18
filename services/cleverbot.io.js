@@ -14,11 +14,12 @@ bot.create((err, response) => {
     }
 })
 
-exports.ask = async (message, callback) => {
+exports.ask = (message, callback) => {
     if (!initialized) {
-        if (callback && typeof(callback) == "function") {
-            callback(null)
-        }
+        // if (callback && typeof(callback) == "function") {
+        //     callback(null)
+        // }
+        throw new Error('Clever bot client havent been initialized');
     } else bot.ask(message, (err, response) => {
         if (err) {
             console.error(err);

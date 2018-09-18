@@ -58,6 +58,7 @@ class Help extends Command {
             fields = this.generateGeneralHelp();
             message = config.support ? `[Support server](${config.support})\n` : '';
             message += `Version: \`${config.version}\`` +
+                `\nPrefix: \`${prefix}\`` +
                 `\nUse \`${prefix}help name\` to get more details`;
         }
         this.sendFromMessage(msg, {
