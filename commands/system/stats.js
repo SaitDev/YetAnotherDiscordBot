@@ -47,7 +47,7 @@ Most active users: ${topUserMessage ? topUserMessage : 'None'}
 
     guildName(id) {
         if (id == 0) return '(Direct Message)'
-        return this.client.guilds.get(id).name || `\`${id}\``;
+        return this.client.guilds.has(id) ? this.client.guilds.get(id).name : `\`${id}\``;
     }
 
     isLimitedActive() {
