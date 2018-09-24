@@ -45,6 +45,47 @@ class TosNew extends Command {
             params = args.trim().removeDuplicateSpace().split(' ');
         }
 
+        if (params[0] == 'subscribe') {
+            categoryId = tosService.categories.first();
+            if (params[1]) {
+                var id = tosService.categories.find((id, name, collection) => name == params[1]);
+                if (typeof id != 'undefined' && id != null && id >= 0) {
+                    categoryId = id;
+                } else {
+                    this.sendFromMessage(msg, `Category \`${params[1]}\` not found`);
+                return;
+                }
+            }
+            var guildId = msg.guild ? msg.guild.id : null;
+            this.client.database.autoTosNewManager.addSubscriber(categoryId, msg.channel.id, guildId)
+            .then(() => {
+                if (categoryId == tosService.uniqueCategories.firstKey()) {
+                    this.sendFromMessage(msg, `Subscribe to all categories`);
+                } else {
+                    this.sendFromMessage(msg, `Subscribe to category ${tosService.uniqueCategories.get(categoryId)}`);
+                }
+            })
+        } else if (params[0] == 'unsubscribe') {
+            categoryId = tosService.categories.first();
+            if (params[1]) {
+                var id = tosService.categories.find((id, name, collection) => name == params[1].toLowerCase());
+                if (typeof id != 'undefined' && id != null && id >= 0) {
+                    categoryId = id;
+                } else {
+                    this.sendFromMessage(msg, `Category \`${params[1]}\` not found`);
+                    return;
+                }
+            }
+            var guildId = msg.guild ? msg.guild.id : null;
+            this.client.database.autoTosNewManager.removeSubscriber(categoryId, msg.channel.id, guildId)
+            .then(() => {
+                if (categoryId == tosService.uniqueCategories.firstKey()) {
+                    this.sendFromMessage(msg, `Unsubscribe to all categories`);
+                } else {
+                    this.sendFromMessage(msg, `Unsubscribe to category ${tosService.uniqueCategories.get(categoryId)}`);
+                }
+            })
+        } else {
             var id = tosService.categories.find((id, name, collection) => name == params[0].trim().toLowerCase());
             if (typeof id != 'undefined' && id != null && id >= 0) {
                 categoryId = id;
@@ -71,6 +112,7 @@ class TosNew extends Command {
             }).catch(err => {
                 this.client.errorLogger.commandFail(err);
             })
+        }
     }
 }
 

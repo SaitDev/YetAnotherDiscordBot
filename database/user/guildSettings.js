@@ -7,10 +7,12 @@ class GuildSettings extends BaseFactory {
         super(factory);
         this.GuildSetting = require('../../models/guildSetting');
         this.customPrefix = new Map();
+        this.disabledModule = new Map();
+        this.disabledCommand = new Map();
     }
 
     loadSettings() {
-        this.safeQuery(
+        return this.safeQuery(
             this.GuildSetting.find({
                 prefix: {$exists: true}
             })
