@@ -1,4 +1,4 @@
-const messageUtil = require('../util/messageUtil')
+const util = require('../util/commonUtil')
 const config = require('../config.json')
 const textChat = ['text', 'dm', 'group']
 
@@ -15,6 +15,7 @@ class GuildLog {
      * @param {import('discord.js').Guild} guild
      */
     joined(guild) {
+        if (!util.isProduction()) return;
         if (config.log.logging && config.log.channel.guilds) {
             if (this.client.channels.has(config.log.channel.guilds)) {
                 var channel = this.client.channels.get(config.log.channel.guilds);
@@ -33,6 +34,7 @@ class GuildLog {
      * @param {import('discord.js').Guild} guild
      */
     left(guild) {
+        if (!util.isProduction()) return;
         if (config.log.logging && config.log.channel.guilds) {
             if (this.client.channels.has(config.log.channel.guilds)) {
                 var channel = this.client.channels.get(config.log.channel.guilds);

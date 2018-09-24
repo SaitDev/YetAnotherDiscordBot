@@ -1,7 +1,8 @@
-const DBL = require('dblapi.js');
+const DBL = require('dblapi.js')
 
-const config = require('../config.json');
-const message = 'Updated server count to discordbots.org';
+const config = require('../config.json')
+const message = 'Updated server count to discordbots.org'
+const updateInterval = 7200000 //2 hours
 
 class DiscordBotOrg {
     /**
@@ -9,7 +10,7 @@ class DiscordBotOrg {
      */
     constructor(client) {
         this.listeners = [];
-        this.service = new DBL(config.discordBotOrg.token, client);
+        this.service = new DBL(config.discordBotOrg.token, {statsInterval: updateInterval}, client);
 
         this.service.on('posted', () => {
             client.errorLogger.info(message, true);

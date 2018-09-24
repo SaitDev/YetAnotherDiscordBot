@@ -20,13 +20,15 @@ class Chitanda extends Discord.Client {
      */
     constructor(cmdPath, options) {
         super(options);
+        /**
+         * @description When client connected to discord and commands are loaded
+         */
         this.ready = false;
         this.errorLogger = new ErrorLog(this);
         this.messageUtil = new MessageUtil(this);
         this.database = new DatabaseFactory(this);
         this.commandManager = new CommandManager(this, cmdPath);
         this.presenceManager = new PresenceManager(this, config);
-        // this.botListingManager = new BotListingManager(this);
         this.delayCreateBotListingManager();
         this.commandLogger = new CommandLog(this);
         this.chatLogger = new ChatLog(this);

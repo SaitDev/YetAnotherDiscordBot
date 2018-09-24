@@ -21,6 +21,7 @@
     "agenda": "^2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
     "cleverbot.io": "^1.0.4",
     "dblapi.js": "^2.2.0",
     "discord.js": "^11.3.2",
@@ -29,9 +30,10 @@
     "moment": "^2.22.2",
     "mongoose": "^5.2.13",
     "request": "^2.88.0",
+    "request-promise": "^4.2.2",
     "sync-request": "^6.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.2"
+    "nodemon": "^1.18.4"
   }
 }

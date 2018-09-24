@@ -57,16 +57,16 @@ class Command {
 	 * @param {*} content 
 	 */
 	sendFromMessage(msg, content) {
-		this.sendFromChannel(msg.channel, content);
+		return this.sendFromChannel(msg.channel, content);
 	}
 
 	/**
 	 * 
-	 * @param {import('discord.js').Channel} channel 
+	 * @param {import('discord.js').TextChannel | import('discord.js').DMChannel | import('discord.js').GroupDMChannel} channel 
 	 * @param {*} content 
 	 */
 	sendFromChannel(channel, content) {
-		channel.send(content)
+		return channel.send(content)
         .catch((err) => {
             this.client.errorLogger.commandFail(err);
         })

@@ -8,11 +8,11 @@ class BaseFactory {
 
     /**
      * 
-     * @param {Promise} promiseLike 
+     * @param {import('mongoose').DocumentQuery} promiseLike 
      */
     safeQuery(promiseLike) {
         return promiseLike.catch(err => {
-            this.client.errorLogger.error(err);
+            this.database.client.errorLogger.error(err);
         });
     }
 }

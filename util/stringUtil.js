@@ -12,6 +12,10 @@ String.prototype.removeSpace = function() {
     return this.replace(/\s/g, '');
 }
 
+String.prototype.removeDuplicateSpace = function() {
+    return this.replace(/\s+/g, ' ');
+}
+
 String.prototype.removeNonLatin = function() {
     return this.replace(/([^\x00-\xFF]|\s)*$/g, '');
 }

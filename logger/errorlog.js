@@ -92,17 +92,22 @@ class ErrorLog {
                 if (this.client.channels.has(config.log.channel.error)) {
                     var channel = this.client.channels.get(config.log.channel.error);
                     if (textChat.includes(channel.type)) {
-                        if (err.message) {
+                        if (err.stack) {
+                            channel.send(`:x: ${err.stack}`)
+                            .catch(e => {
+                                console.error(errorPrefix + e.stack);
+                            })
+                        } else if (err.message) {
                             if (!ignore.error.messages.includes(err.message)) {
                                 channel.send(`:x: ${err.name ? `\`${err.name}\` ` : ''} ${err.message}`)
-                                .catch(err => {
-                                    console.error(errorPrefix + err.stack);
+                                .catch(e => {
+                                    console.error(errorPrefix + e.stack);
                                 })
                             }
                         } else {
                             channel.send(`:x: ${err}`)
-                            .catch(err => {
-                                console.error(errorPrefix + err.stack);
+                            .catch(e => {
+                                console.error(errorPrefix + e.stack);
                             })
                         }
                     }
@@ -126,15 +131,20 @@ class ErrorLog {
                 if (this.client.channels.has(config.log.channel.cmdError)) {
                     var channel = this.client.channels.get(config.log.channel.cmdError);
                     if (textChat.includes(channel.type)) {
-                        if (err.name && err.message) {
+                        if (err.stack) {
+                            channel.send(`:x: ${err.stack}`)
+                            .catch(e => {
+                                console.error(errorPrefix + e.stack);
+                            })
+                        } else if (err.name && err.message) {
                             channel.send(`:x: \`${err.name}\` ${err.message}`)
-                            .catch(err => {
-                                console.error(errorPrefix + err.stack);
+                            .catch(e => {
+                                console.error(errorPrefix + e.stack);
                             })
                         } else {
                             channel.send(`:x: ${err}`)
-                            .catch(err => {
-                                console.error(errorPrefix + err.stack);
+                            .catch(e => {
+                                console.error(errorPrefix + e.stack);
                             })
                         }
                     }
