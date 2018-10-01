@@ -41,7 +41,8 @@ class TreeOfSaviorNews {
                         }
                     })
                 }
-                this.client.database.latestTosNewManager.crawled(news[0].id);
+                var sortedNews = news.sort((a, b) => b.id - a.id);
+                this.client.database.latestTosNewManager.crawled(sortedNews[0].id);
             })
         } catch (err) {
             this.client.errorLogger.error(err);

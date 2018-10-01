@@ -12,6 +12,10 @@ const info = {
 }
 
 class Stats extends Command {
+    /**
+     * @param {import('../../chitanda')} client 
+     * @param {string} module 
+     */
     constructor(client, module) {
         super(client, info, module);
         this.config = client.commandManager.config;
@@ -34,6 +38,7 @@ class Stats extends Command {
         topUserMessage = topUserMessage.slice(0, topUserMessage.length - 2);
         
         this.sendFromMessage(msg, `\`\`\`
+Version ${this.config.version}
 Serving ${this.isLimitedActive() ? this.config.guilds.length : this.client.guilds.size} guilds
 Stalking ${this.client.users.size} humans
 Up time ${moment.duration(this.client.uptime).humanize()}
