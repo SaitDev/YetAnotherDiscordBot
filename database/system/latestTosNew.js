@@ -36,10 +36,18 @@ class LatestTosNew extends BaseFactory {
             throw new TypeError('ToS news id must be number');
         }
         var lastCrawl = Date.now();
+        var newDoc = {
+            newsId: newsId, 
+            url: BASE_NEWS_URL + newsId.toString(), 
+            lastCheck: lastCrawl
+        }
+        if (newsId != this.latestNew) {
+            newDoc.time = lastCrawl;
+        }
         this.safeQuery(
             this.LatestTosNewCrawled.updateOne(
                 {newsId: {$exists: true}, time: {$exists: true}},
-                {newsId: newsId, url: BASE_NEWS_URL + newsId.toString(), time: lastCrawl},
+                newDoc,
                 {upsert: true}
             ).then(() => {
                 this.lastCrawl = lastCrawl;

@@ -25,10 +25,11 @@ class TreeOfSaviorNews {
             .then(news => {
                 if (!news || news.length < 1) return;
                 if (!this.client.database.latestTosNewManager.loaded) return;
-                
-                if (this.client.database.latestTosNewManager.latestNew > 0) {
+
+                var latestNew = this.client.database.latestTosNewManager.latestNew;
+                if (latestNew > 0) {
                     news.filter(
-                        val => val.id > this.client.database.latestTosNewManager.latestNew
+                        val => val.id > latestNew
                     ).forEach(val => {
                         var channels = this.client.database.autoTosNewManager.subscriber.get(val.category).keys();
                         for (let channel of channels) {

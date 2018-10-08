@@ -6,7 +6,8 @@ const util = require('../util/commonUtil')
 const latestTosNewCrawled = new Schema({
     newsId: Number,
     url : String,
-    time: Date
+    time: Date,
+    lastCheck: Date
 }, {
     collection: util.isProduction() ? "prod_autoTosNews" : "test_autoTosNews"
 })
