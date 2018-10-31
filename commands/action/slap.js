@@ -44,8 +44,9 @@ class Slap extends Command {
                     `${this.client.user.toString()} slapped ${msg.author.toString()}`;
             }
         }
+        link = link ? link : (Util.randomTrue() ? nekoLife.image('slap') : ramMoe.image('slap'));
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('slap') : ramMoe.image('slap')), 
+            embed: Embed.create(link, 
                 msg.author.tag, message)
         });
     }

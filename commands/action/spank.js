@@ -42,8 +42,9 @@ class Spank extends Command {
                     `${this.client.user.toString()} spanks ${msg.author.toString()}`;
             }
         }
+        link = link ? link : nekoLife.image('spank');
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : nekoLife.image('spank'), msg.author.tag, message)
+            embed: Embed.create(link, msg.author.tag, message)
         });
     }
 }

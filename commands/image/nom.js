@@ -18,8 +18,9 @@ class Nom extends Command {
 	}
 
     run(msg, args) {
+        var link = ramMoe.image('nom');
         this.sendFromMessage(msg, {
-            embed: Embed.create(ramMoe.image('nom'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

@@ -18,8 +18,9 @@ class Avatar extends Command {
 	}
 
     run(msg, args) {
+        var link = nekoLife.image('avatar');
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('avatar'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

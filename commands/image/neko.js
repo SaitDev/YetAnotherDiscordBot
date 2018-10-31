@@ -19,8 +19,9 @@ class Neko extends Command {
 	}
 
     run(msg, args) {
+        var link = Util.randomTrue() ? nekoLife.image('ngif') : nekoLife.image('neko');
         this.sendFromMessage(msg, {
-            embed: Embed.create(Util.randomTrue() ? nekoLife.image('ngif') : nekoLife.image('neko'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

@@ -34,8 +34,9 @@ class Poke extends Command {
         } else {
             message = `Yoo. ${this.client.user.toString()} pokes ${msg.author.toString()}`;
         }
+        link = link ? link : nekoLife.image('poke');
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : nekoLife.image('poke'), msg.author.tag, message)
+            embed: Embed.create(link, msg.author.tag, message)
         });
     }
 }

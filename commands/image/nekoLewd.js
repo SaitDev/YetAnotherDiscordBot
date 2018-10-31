@@ -20,8 +20,9 @@ class Neko16 extends Command {
 	}
 
     run(msg, args) {
+        var link = nekoLife.image('eron');
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('eron'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

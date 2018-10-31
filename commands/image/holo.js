@@ -18,8 +18,9 @@ class Holo extends Command {
 	}
 
     run(msg, args) {
+        var link = nekoLife.image('holo');
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('holo'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

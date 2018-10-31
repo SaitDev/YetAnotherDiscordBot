@@ -18,8 +18,9 @@ class Rem extends Command {
 	}
 
     run(msg, args) {
+        var link = ramMoe.image('rem');
         this.sendFromMessage(msg, {
-            embed: Embed.create(ramMoe.image('rem'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

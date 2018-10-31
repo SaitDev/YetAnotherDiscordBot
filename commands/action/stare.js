@@ -34,8 +34,9 @@ class Slap extends Command {
         } else {
             message = `${msg.author.toString()} is staring at something :eyes:`;
         }
+        link = link ? link : ramMoe.image('stare');
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : ramMoe.image('stare'), msg.author.tag, message)
+            embed: Embed.create(link, msg.author.tag, message)
         });
     }
 }

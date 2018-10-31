@@ -18,8 +18,9 @@ class Waifu extends Command {
 	}
 
     run(msg, args) {
+        var link = nekoLife.image('waifu');
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('waifu'), msg.author.tag, '**Here some waifu for your laifu**')
+            embed: Embed.create(link, msg.author.tag, '**Here some waifu for your laifu**')
         });
     }
 }

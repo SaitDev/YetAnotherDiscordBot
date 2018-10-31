@@ -19,8 +19,9 @@ class Wallpaper extends Command {
 	}
 
     run(msg, args) {
+        var link = nekoLife.image('wallpaper');
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('wallpaper'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

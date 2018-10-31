@@ -40,8 +40,9 @@ class Pat extends Command {
                 message = `${this.client.user.toString()} pats ${msg.author.toString()}`
             }
         }
+        link = link ? link : (Util.randomTrue() ? nekoLife.image('pat') : ramMoe.image('pat'));
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('pat') : ramMoe.image('pat')),
+            embed: Embed.create(link,
                 msg.author.tag, message)
         });
     }

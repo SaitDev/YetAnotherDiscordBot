@@ -18,8 +18,9 @@ class OwO extends Command {
 	}
 
     run(msg, args) {
+        var link = ramMoe.image('owo');
         this.sendFromMessage(msg, {
-            embed: Embed.create(ramMoe.image('owo'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

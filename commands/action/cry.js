@@ -20,8 +20,9 @@ class Cry extends Command {
     run(msg, args) {
         var message, link;
         message = `${msg.author.toString()} is crying ;-;`;
+        link = link ? link : ramMoe.image('cry');
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : ramMoe.image('cry'), msg.author.tag, message)
+            embed: Embed.create(link, msg.author.tag, message)
         });
     }
 }

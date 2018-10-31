@@ -19,8 +19,9 @@ class ShoujoAi extends Command {
 	}
 
     run(msg, args) {
+        var link = nekoLife.image('eroyuri');
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('eroyuri'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

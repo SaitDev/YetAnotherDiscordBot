@@ -19,8 +19,9 @@ class Trap extends Command {
 	}
 
     run(msg, args) {
+        var link = nekoLife.image('trap');
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('trap'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

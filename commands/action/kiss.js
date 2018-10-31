@@ -40,8 +40,9 @@ class Kiss extends Command {
                 message = `${this.client.user.toString()}.... kisses ${msg.author.toString()}... *run away*`
             }
         }
+        link = link ? link : (Util.randomTrue() ? nekoLife.image('kiss') : ramMoe.image('kiss'));
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('kiss') : ramMoe.image('kiss')),
+            embed: Embed.create(link,
                 msg.author.tag, message)
         });
     }

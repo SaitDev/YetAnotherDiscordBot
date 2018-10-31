@@ -31,8 +31,9 @@ class Smug extends Command {
         } else {
             message = `${msg.author.toString()} looks a bit smug`;
         }
+        link = link ? link : ramMoe.image('smug');
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : ramMoe.image('smug'), msg.author.tag, message)
+            embed: Embed.create(link, msg.author.tag, message)
         });
     }
 }

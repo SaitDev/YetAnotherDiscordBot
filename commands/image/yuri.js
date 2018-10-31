@@ -19,8 +19,9 @@ class Yuri extends Command {
 	}
 
     run(msg, args) {
+        var link = nekoLife.image('yuri');
         this.sendFromMessage(msg, {
-            embed: Embed.create(nekoLife.image('yuri'), msg.author.tag)
+            embed: Embed.create(link, msg.author.tag)
         });
     }
 }

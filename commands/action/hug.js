@@ -40,8 +40,9 @@ class Hug extends Command {
                 message = `${this.client.user.toString()} hugs ${msg.author.toString()} (・ω・*)`
             }
         }
+        link = link ? link : (Util.randomTrue() ? nekoLife.image('hug') : ramMoe.image('hug'));
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('hug') : ramMoe.image('hug')),
+            embed: Embed.create(link,
                 msg.author.tag, message)
         });
     }

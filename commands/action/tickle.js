@@ -40,8 +40,9 @@ class Tickle extends Command {
                 message = `${msg.author.toString()} got tickled by ${this.client.user.toString()} uwu`
             }
         }
+        link = link ? link : (Util.randomTrue() ? nekoLife.image('tickle') : ramMoe.image('tickle'));
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : (Util.randomTrue() ? nekoLife.image('tickle') : ramMoe.image('tickle')), 
+            embed: Embed.create(link, 
                 msg.author.tag, message)
         });
     }

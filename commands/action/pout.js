@@ -34,8 +34,9 @@ class Pout extends Command {
         } else {
             message = `${msg.author.toString()} pouts. I wonder why`;
         }
+        link = link ? link : ramMoe.image('pout');
         this.sendFromMessage(msg, {
-            embed: Embed.create(link ? link : ramMoe.image('pout'), msg.author.tag, message)
+            embed: Embed.create(link, msg.author.tag, message)
         });
     }
 }
