@@ -68,6 +68,9 @@ class Command {
 	sendFromChannel(channel, content) {
 		return channel.send(content)
         .catch((err) => {
+            var msg = 'Error! Please report to the support server if something went wrong';
+            msg += err.message ? (': `' + err.message + '`') : '';
+            channel.send(msg).catch(() => {});
             this.client.errorLogger.commandFail(err);
         })
 	}

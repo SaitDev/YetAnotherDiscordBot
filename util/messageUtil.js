@@ -49,7 +49,7 @@ class MessageUtil {
      * @param {string} content 
      */
     removeMentionMember(msg, content) {
-        if (msg.mentions.members.size > 0) {
+        if (msg.mentions.members && msg.mentions.members.size > 0) {
             msg.mentions.members.forEach((member, id) => {
                 content = content.replace(member.toString(), "");
             });
@@ -63,7 +63,7 @@ class MessageUtil {
      * @param {string} content 
      */
     removeMentionChannel(msg, content) {
-        if (msg.mentions.channels.size > 0) {
+        if (msg.mentions.channels && msg.mentions.channels.size > 0) {
             msg.mentions.channels.forEach((channel, id) => {
                 content = content.replace(channel.toString(), "");
             });
@@ -77,7 +77,7 @@ class MessageUtil {
      * @param {string} content 
      */
     removeMentionRole(msg, content) {
-        if (msg.mentions.roles.size > 0) {
+        if (msg.mentions.roles && msg.mentions.roles.size > 0) {
             msg.mentions.roles.forEach((role, id) => {
                 content = content.replace(role.toString(), "");
             });
@@ -91,7 +91,7 @@ class MessageUtil {
      * @param {string} content 
      */
     removeMentionUser(msg, content) {
-        if (msg.mentions.users.size > 0) {
+        if (msg.mentions.users && msg.mentions.users.size > 0) {
             msg.mentions.users.forEach((user, id) => {
                 content = content.replace(user.toString(), "");
             });
@@ -105,7 +105,7 @@ class MessageUtil {
      * @param {string} content 
      */
     replaceMentionMemberName(msg, content) {
-        if (msg.mentions.members.size > 0) {
+        if (msg.mentions.members && msg.mentions.members.size > 0) {
             msg.mentions.members.forEach((member, id) => {
                 content = content.replace(member.toString(), member.displayName)
             });
