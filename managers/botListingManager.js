@@ -1,5 +1,5 @@
 const DiscordBotOrg = require('../services/discordBots.org')
-const BotDiscordPw = require('../services/discordBots.gg')
+const DiscordBotGG = require('../services/discordBots.gg')
 
 class BotListingManager {
     /**
@@ -8,7 +8,7 @@ class BotListingManager {
     constructor(client) {
         this.client = client;
         this.discordBotOrg = new DiscordBotOrg(client);
-        this.botDiscordPw = new BotDiscordPw(client);
+        this.discordBotGG = new DiscordBotGG(client);
     }
 }
 
