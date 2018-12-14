@@ -1,5 +1,5 @@
 const DiscordBotOrg = require('../services/discordBots.org')
-const BotDiscordPw = require('../services/botsDiscord.Pw')
+const BotDiscordPw = require('../services/discordBots.gg')
 
 class BotListingManager {
     /**

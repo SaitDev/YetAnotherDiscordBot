@@ -19,7 +19,7 @@
 		"token": "put-api-token",
 		"webhookAuth": "webhook-password"
 	},
-	"botsDiscordPw": {
+	"discordBotsGG": {
 		"token": "put-api-token"
 	},
 	"presence": [

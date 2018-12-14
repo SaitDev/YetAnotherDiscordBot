@@ -1,11 +1,10 @@
 const https = require('https');
 
 const config = require('../config.json');
-const BASE_HOST = "bots.discord.pw";
+const BASE_HOST = "discord.bots.gg";
 const BASE_URL = "https://" + BASE_HOST;
-const API = "/api";
+const API = "/api/v1";
 const BOTS = "/bots";
-const USERS = "/users";
 const STATS = "/stats";
 const ID = "{id}";
 const PATH_ID = "/" + ID;
@@ -17,7 +16,7 @@ const URL_GET_BOT = BASE_URL + API + BOTS + PATH_ID;
 const URL_GET_BOT_STATS = BASE_URL + API + BOTS + PATH_ID + STATS;
 const URL_POST_BOT_STATS = BASE_URL + API + BOTS + PATH_ID + STATS;
 
-class BotDiscordPw {
+class DiscordBotsGG {
     /**
      * @param {import('../chitanda')} client 
      */
@@ -33,7 +32,7 @@ class BotDiscordPw {
                 path: PATH_POST_BOT_STATS.replace(ID, this.client.user.id),
                 method: 'POST',
                 headers: {
-                    'Authorization': config.botsDiscordPw.token,
+                    'Authorization': config.discordBotsGG.token,
                     'Content-Type': 'application/json'
                 }
             },
@@ -50,7 +49,7 @@ class BotDiscordPw {
                     if (res.statusCode >= 300) {
                         this.client.errorLogger.error(data != '' ? data : res.statusMessage);
                     } else {
-                        this.client.errorLogger.info('Updated server count to bots.discord.pw', true);
+                        this.client.errorLogger.info('Updated server count to ' + BASE_HOST, true);
                     }
                 });
             }
@@ -59,13 +58,13 @@ class BotDiscordPw {
         });
 
         request.write(JSON.stringify({
-            server_count: this.client.guilds.size,
-            shard_id: (this.client.shard && this.client.shard.id) ? this.client.shard.id : undefined,
-            shard_count: (this.client.shard && this.client.shard.count) ? this.client.shard.count : undefined,
+            guildCount: this.client.guilds.size,
+            shardCount: (this.client.shard && this.client.shard.count) ? this.client.shard.count : undefined,
+            shardId: (this.client.shard && this.client.shard.id) ? this.client.shard.id : undefined
         }));
         
         request.end();
     }
 }
 
-module.exports = BotDiscordPw;
+module.exports = DiscordBotsGG;
