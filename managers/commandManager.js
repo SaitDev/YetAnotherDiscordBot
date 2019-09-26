@@ -52,7 +52,12 @@ class CommandManager {
 
                 if (!file.endsWith('.js')) return;
                 const Command = require(path.join(this.cmdPath, moduleId, file));
+                /**
+                 * @type {import('../commands/Command')}
+                 */
                 var cmd = new Command(this.client, moduleId);
+
+                if (!cmd.enabled) return;
 
                 if (!cmd.run || typeof cmd.run !== 'function') {
                     throw new TypeError('Command doesnt have run function');

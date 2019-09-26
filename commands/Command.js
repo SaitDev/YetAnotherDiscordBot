@@ -1,3 +1,5 @@
+const Discord = require('discord.js')
+
 const config = require('../config.json')
 const Embed = require('../util/embed')
 const MessageUtil = require('../util/messageUtil')
@@ -8,10 +10,10 @@ class Command {
 	/**
 	 * @param {import('../chitanda')} client 
 	 * @param {*} info 
-	 * @param {string} module
+	 * @param {string} moduleId
 	 */
-	constructor(client, info, module) {
-		Command.validateInfo(client, info, module);
+	constructor(client, info, moduleId) {
+		Command.validateInfo(client, info, moduleId);
 
 		this.client = client;
 		this.messageUtil = new MessageUtil(client);
@@ -22,7 +24,25 @@ class Command {
 		this.runIn = info.runIn;
 		this.isNSFW = info.isNSFW;
 		this.ownerOnly = info.ownerOnly;
-		this.module = module;
+		if (typeof info.enabled == "boolean") {
+			this.enabled  = info.enabled;
+		} else {
+			this.enabled  = true;
+		}
+		this.module = moduleId;
+		/**
+		 * @type {import('discord.js').PermissionFlags[]}
+		 * @description Has at least one of these permissions to use this command
+		 */
+		this.requirePermissions = info.requirePermissions;
+		if (this.requirePermissions && !Array.isArray(this.requirePermissions)) {
+			this.requirePermissions = [info.requirePermissions];
+		}
+		/**
+		 * @description Must be guild owner to use this command. Only apply to requests from guild channels not dm
+		 */
+		this.requireGuildOwner = false;
+		this.hidden = false;
 	}
 
 	static validateInfo(client, info) {
@@ -37,16 +57,42 @@ class Command {
 		if (!module) throw new Error('Module should not be empty');
 	}
 
+	/**
+	 * @param {import('discord.js').Message} msg 
+	 * @param {string} args 
+	 */
 	execute(msg, args) {
 		if (this.checkChannel(msg)) {
 			if (this.checkNsfw(msg)) {
-				this.sendFromMessage(msg, {
-					embed: Embed.create(nsfwGuide, null, 'This command can only be used in nsfw channel')
-				});
-			} else if (this.ownerOnly && !config.owner.includes(msg.author.id)) {
-				this.sendFromMessage(msg, 'You dont have permission to use this command');
+				if (!this.hidden) {
+					this.sendFromMessage(msg, {
+						embed: Embed.create(nsfwGuide, null, 'This command can only be used in nsfw channel')
+					});
+				}
+			} else if ((this.ownerOnly && !config.owner.includes(msg.author.id)) || 
+						(this.requireGuildOwner && msg.guild && msg.guild.ownerID != msg.author.id)) {
+				if (!this.hidden) {
+					this.sendFromMessage(msg, 'You dont have permission to use this command');
+				}
 			} else {
-				this.run(msg, args);
+				var canRun = true;
+				if (this.requirePermissions) {
+					canRun = false;
+					if (Array.isArray(this.requirePermissions) && this.requirePermissions.length > 0) {
+						this.requirePermissions.forEach(perm => {
+							if (msg.member.hasPermission(perm)) {
+								canRun = true;
+							}
+						})
+					}
+				}
+				if (canRun) {
+					this.run(msg, args);
+				} else {
+					if (!this.hidden) {
+						this.sendFromMessage(msg, 'You dont have permission to use this command');
+					}
+				}
 			}
 		}
 	}

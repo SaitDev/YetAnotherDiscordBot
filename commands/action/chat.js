@@ -1,5 +1,5 @@
 const Command = require('../Command')
-const cleverbot = require('../../services/cleverbot.io.js')
+const cleverbot = null; //require('../../services/cleverbot.io.js')
 
 const Embed = require('../../util/embed')
 const common = require('../../util/commonUtil')
@@ -13,7 +13,8 @@ const info = {
         common.mentionBotPattern + " text"
     ],
     runIn: ["text", "dm"],
-    ownerOnly: false
+    ownerOnly: false,
+    enabled: false //clever bot is down at this time
 }
 
 class Chat extends Command {
