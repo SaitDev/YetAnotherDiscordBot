@@ -1,5 +1,5 @@
 /**======= Copy right
-    Sait 2017-2018
+    Sait 2017-2021
 =====================*/
 const path = require('path');
 
@@ -45,7 +45,10 @@ client.on('error', error => {
 client.on('message', message => {
     try {
         if (!client.ready) return;
-        client.commandManager.handleMessage(message);
+        if (!client.commandManager.handleMessage(message)) {
+            //not command
+            ;
+        }
     } catch (err) {
         client.errorLogger.commandFail(err);
     }

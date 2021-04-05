@@ -47,6 +47,14 @@ class CommandManager {
                     if (this.isValidModuleConfig(moduleInfo)) {
                         this.modules.set(moduleId, moduleInfo);
                     }
+                    //set hide for loaded cmds of this module
+                    if (typeof moduleInfo.hidden == "boolean" && moduleInfo.hidden) {
+                        this.commands.forEach(cmd => {
+                            if (cmd.module == moduleId) {
+                                cmd.hidden = true;
+                            }
+                        });
+                    }
                     return;
                 }
 
@@ -66,6 +74,12 @@ class CommandManager {
                 if (this.commands.has(cmd.name)) {
                     throw new Error(`Duplicate command name [${cmd.name}]`);
                 }
+
+                var moduleInfo = this.modules.get(cmd.module);
+                if (moduleInfo && typeof moduleInfo.hidden == "boolean" && moduleInfo.hidden) {
+                    cmd.hidden = true;
+                }
+
                 this.commands.set(cmd.name, cmd);
                 if (cmd.name.length > this.longestName.length) {
                     this.longestName = cmd.name;
@@ -108,8 +122,16 @@ class CommandManager {
         }
 
         var cmd;
-        if (msg.content.startsWith(this.client.user.toString())) {
-            cmd = msg.content.substring(this.client.user.toString().length + 1, msg.content.length);
+        var botMentionString = this.client.user.toString();
+        var botNicknameMentionString = botMentionString.replace('<@', '<@!');
+        if (msg.content.startsWith(botMentionString)) {
+            cmd = msg.content.substring(botMentionString.length + 1, msg.content.length);
+            if (!cmd) return false;
+            if (!cmd.startsWith('help ') && cmd != 'help') {
+                cmd = 'chat ' + cmd;
+            }
+        } else if (msg.content.startsWith(botNicknameMentionString)) {
+            cmd = msg.content.substring(botNicknameMentionString.length + 1, msg.content.length);
             if (!cmd) return false;
             if (!cmd.startsWith('help ') && cmd != 'help') {
                 cmd = 'chat ' + cmd;

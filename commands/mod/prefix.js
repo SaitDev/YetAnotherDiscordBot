@@ -26,7 +26,12 @@ class Prefix extends Command {
      */
     async run(msg, args) {
         if (args) {
-            args.trim();
+            args = args.trim();
+            //TODO move max length prefix to config.json
+            var maxLength = 30;
+            if (args.length > maxLength) {
+                this.sendFromMessage(msg, 'Error: Prefix is too long. Maximum characters allowed is ' + maxLength);
+            }
             this.client.database.guildSettingManager.updatePrefix(msg.guild, args)
             .then(_ => {
                 this.sendFromMessage(msg, `Changed prefix to \`${args}\` for ${msg.guild.name}`);

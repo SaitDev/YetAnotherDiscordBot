@@ -59,7 +59,7 @@ class Help extends Command {
             message = config.support ? `[Support server](${config.support})\n` : '';
             message += `Version: \`${config.version}\`` +
                 `\nPrefix: \`${prefix}\`` +
-                `\nUse \`${prefix}help name\` to get more details`;
+                `\nUse \`${prefix}help commandName\` or \`${prefix}help moduleName\` to get more details`;
         }
         this.sendFromMessage(msg, {
             embed: Embed.create(null, null, message, title, fields)
@@ -70,11 +70,14 @@ class Help extends Command {
         var fields = [];
         this.client.commandManager.modules.keyArray().forEach(moduleId => {
             var moduleInfo = this.client.commandManager.modules.get(moduleId);
+
+            if (moduleInfo && typeof moduleInfo.hidden == "boolean" && moduleInfo.hidden) return;
+
             var name = moduleInfo ? `${moduleInfo.name}` : `${moduleId}`;
             var value = '';
             var commandCount = 0;
             this.client.commandManager.commands.forEach(cmd => {
-                if (cmd.module == moduleId) {
+                if (cmd.module == moduleId && !cmd.hidden) {
                     value += `\`${cmd.name}\`, `;
                     commandCount++;
                 }
@@ -90,6 +93,8 @@ class Help extends Command {
         var fields = [];
         var moduleInfo = this.client.commandManager.modules.get(moduleId);
         if (moduleInfo) {
+            if (typeof moduleInfo.hidden == "boolean" && moduleInfo.hidden) return null;
+
             fields.push(Embed.createField(moduleInfo.name, moduleInfo.description));
         }
 
@@ -111,7 +116,7 @@ class Help extends Command {
         if (!command) {
             command = this.client.commandManager.aliases.get(commandId);
         }
-        if (!command) {
+        if (!command || command.hidden) {
             return null;
         }
 

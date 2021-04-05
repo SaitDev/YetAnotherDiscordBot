@@ -1,3 +1,7 @@
+# Local only
+config*
+gitCommands.txt
+
 # Logs
 logs
 *.log

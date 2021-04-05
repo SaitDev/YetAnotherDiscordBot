@@ -10,7 +10,8 @@ const ignore = {
     error: {
         names: null,
         messages: [
-            'read ECONNRESET' //lost socket connection
+            'read ECONNRESET', //lost socket connection
+            'Cannot send messages to this user' //that user's privacy setting does not allow this bot direct message
         ]
     }
 }
