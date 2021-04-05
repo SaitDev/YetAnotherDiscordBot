@@ -33,9 +33,10 @@ class TreeOfSaviorNews {
                     ).forEach(val => {
                         var channels = this.client.database.autoTosNewManager.subscriber.get(val.category).keys();
                         for (let channel of channels) {
-                            if (this.client.channels.has(channel)) {
+                            var discordChannel = this.client.channels.resolve(channel)
+                            if (discordChannel) {
                                 this.client.messageUtil.sendFromChannel(
-                                    this.client.channels.get(channel),
+                                    discordChannel,
                                     val.url
                                 );
                             }

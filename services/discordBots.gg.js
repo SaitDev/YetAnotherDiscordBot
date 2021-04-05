@@ -58,7 +58,7 @@ class DiscordBotsGG {
         });
 
         request.write(JSON.stringify({
-            guildCount: this.client.guilds.size,
+            guildCount: this.client.guilds.cache.size,
             shardCount: (this.client.shard && this.client.shard.count) ? this.client.shard.count : undefined,
             shardId: (this.client.shard && this.client.shard.id) ? this.client.shard.id : undefined
         }));

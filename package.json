@@ -24,7 +24,7 @@
     "cheerio": "^1.0.0-rc.2",
     "cleverbot.io": "^1.0.4",
     "dblapi.js": "^2.2.0",
-    "discord.js": "^11.3.2",
+    "discord.js": "^12.5.2",
     "express": "^4.16.3",
     "leetscript": "^1.1.0",
     "moment": "^2.22.2",
