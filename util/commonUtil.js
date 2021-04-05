@@ -1,4 +1,4 @@
-const prodEnv = "PRODUCTION";
+const env = require('../core/env');
 
 exports.prefixPattern = '%prefix%';
 exports.mentionBotPattern = '%mentionBot%';
@@ -13,5 +13,5 @@ exports.randomTrue = () => {
 }
 
 exports.isProduction = () => {
-    return !!process.env.CHITANDA_ENV && process.env.CHITANDA_ENV.toUpperCase() == prodEnv;
+    return !!process.env.CHITANDA_ENV && process.env.CHITANDA_ENV.toUpperCase() == env.PRODUCTION;
 }

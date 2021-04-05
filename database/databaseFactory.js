@@ -22,7 +22,14 @@ class DatabaseFactory {
     }
 
     connect() {
-        return mongoose.connect(config.database, { useNewUrlParser: true })
+        let databaseUri;
+        if (config.database.startsWith('${') && config.database.endsWith('}')) {
+            databaseUri = config.database.substring(2, config.database.length - 1);
+            databaseUri = process.env[databaseUri];
+        } else {
+            databaseUri = config.database;
+        }
+        return mongoose.connect(databaseUri, { useNewUrlParser: true })
         .then(() => {
             this.client.errorLogger.info('Connected to mongodb', true);
             return true;
