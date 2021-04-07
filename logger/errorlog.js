@@ -34,7 +34,7 @@ class ErrorLog {
             }
 
             if (config.log.logging && config.log.channel.info) {
-                if (this.client.channels.has(config.log.channel.info)) {
+                if (this.client.channels.resolve(config.log.channel.info)) {
                     var channel = this.client.channels.get(config.log.channel.info);
                     if (textChat.includes(channel.type)) {
                         channel.send(`:white_check_mark: ${message}`)
@@ -59,7 +59,7 @@ class ErrorLog {
             }
 
             if (config.log.logging && config.log.channel.warn) {
-                if (this.client.channels.has(config.log.channel.warn)) {
+                if (this.client.channels.resolve(config.log.channel.warn)) {
                     var channel = this.client.channels.get(config.log.channel.warn);
                     if (textChat.includes(channel.type)) {
                         channel.send(`:warning: ${err}`)
@@ -90,7 +90,7 @@ class ErrorLog {
             }
 
             if (config.log.logging && config.log.channel.error) {
-                if (this.client.channels.has(config.log.channel.error)) {
+                if (this.client.channels.resolve(config.log.channel.error)) {
                     var channel = this.client.channels.get(config.log.channel.error);
                     if (textChat.includes(channel.type)) {
                         if (err.stack) {
@@ -129,7 +129,7 @@ class ErrorLog {
             }
 
             if (config.log.logging && config.log.channel.cmdError) {
-                if (this.client.channels.has(config.log.channel.cmdError)) {
+                if (this.client.channels.resolve(config.log.channel.cmdError)) {
                     var channel = this.client.channels.get(config.log.channel.cmdError);
                     if (textChat.includes(channel.type)) {
                         if (err.stack) {

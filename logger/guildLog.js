@@ -17,7 +17,7 @@ class GuildLog {
     joined(guild) {
         if (!util.isProduction()) return;
         if (config.log.logging && config.log.channel.guilds) {
-            if (this.client.channels.has(config.log.channel.guilds)) {
+            if (this.client.channels.resolve(config.log.channel.guilds)) {
                 var channel = this.client.channels.get(config.log.channel.guilds);
                 if (textChat.includes(channel.type)) {
                     this.client.messageUtil.sendFromChannel(
@@ -36,7 +36,7 @@ class GuildLog {
     left(guild) {
         if (!util.isProduction()) return;
         if (config.log.logging && config.log.channel.guilds) {
-            if (this.client.channels.has(config.log.channel.guilds)) {
+            if (this.client.channels.resolve(config.log.channel.guilds)) {
                 var channel = this.client.channels.get(config.log.channel.guilds);
                 if (textChat.includes(channel.type)) {
                     this.client.messageUtil.sendFromChannel(
