@@ -17,7 +17,7 @@ const info = {
         "(subscribe to category, news will be auto posted to this channel)",
         "Example: " + common.prefixPattern + "genshinnews subscribe updates",
         "",
-        // common.prefixPattern + "genshinnews unsubscribe category"
+        common.prefixPattern + "genshinnews unsubscribe category"
     ],
     runIn: ["text", "dm"],
     ownerOnly: false
@@ -56,10 +56,7 @@ class GINews extends Command {
                     this.sendFromMessage(msg, `Category \`${params[1]}\` not found`);
                     return;
                 }
-            } //else {
-            //     this.sendFromMessage(msg, `Please chose category`);
-            //     return;
-            // }
+            }
             var guildId = msg.guild ? msg.guild.id : null;
             this.client.database.genshinNewsSubscribeFactory.addSubscriber(channelId, msg.channel.id, guildId)
             .then(() => {
@@ -67,6 +64,29 @@ class GINews extends Command {
                     this.sendFromMessage(msg, `Subscribe to all categories`);
                 } else {
                     this.sendFromMessage(msg, `Subscribe to category ${genshinService.uniqueChannels.get(channelId)}`);
+                }
+            })
+        } else if (params[0] == 'unsubscribe') {
+            if (params[1]) {
+                var id = genshinService.channels.find((id, name, collection) => name == params[1]);
+                if (typeof id != 'undefined' && id != null && id >= 0) {
+                    channelId = id;
+                } else {
+                    this.sendFromMessage(msg, `Category \`${params[1]}\` not found`);
+                    return;
+                }
+            } else {
+                this.sendFromMessage(msg, `Please chose category`);
+                return;
+            }
+            var guildId = msg.guild ? msg.guild.id : null;
+
+            this.client.database.genshinNewsSubscribeFactory.removeSubscriber(channelId, msg.channel.id, guildId)
+            .then(() => {
+                if (channelId == genshinService.channelAll) {
+                    this.sendFromMessage(msg, `Unsubscribe to all categories`);
+                } else {
+                    this.sendFromMessage(msg, `Unsubscribe to category ${genshinService.uniqueChannels.get(channelId)}`);
                 }
             })
         } else {

@@ -46,7 +46,7 @@ class LatestGenshinNewsFactory extends BaseFactory {
             newsIds: newsIds, 
             lastCheck: lastCrawl
         }
-        if (_.isEqual(this.latestNewses.slice(), newsIds.slice())) {
+        if (!this.latestNewses.length || _.isEqual(this.latestNewses.slice(), newsIds.slice()) == false) {
             newsDoc.time = lastCrawl;
         }
         this.safeQuery(

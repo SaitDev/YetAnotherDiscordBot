@@ -91,6 +91,35 @@ class GenshinNewsSubscribeFactory extends BaseFactory {
             }))
         }
     }
+
+    removeSubscriber(genshinNewsChannelId, discordChannelId, guildId) {
+        var conditions = {
+            discordChannel: discordChannelId
+        }
+        if (typeof guildId != 'undefined' && guildId != null) {
+            conditions.guild = guildId
+        }
+
+        if (genshinNewsChannelId == genshinService.channelAll) {
+            return this.safeQuery(GenshinNewsSubscribe.updateOne(
+                conditions,
+                {$unset : {newsChannels: null}} //null or any value, doesnt matter for $unset
+            ).then(() => {
+                genshinService.channelIds.forEach(ch => {
+                    if (this.subscriber.get(ch)) {
+                        this.subscriber.get(ch).delete(discordChannelId);
+                    }
+                })
+            }))
+        } else {
+            return this.safeQuery(GenshinNewsSubscribe.updateOne(
+                conditions,
+                {$pull: {newsChannels: genshinNewsChannelId}}
+            ).then(() => {
+                this.subscriber.get(genshinNewsChannelId).delete(discordChannelId);
+            }))
+        }
+    }
 }
 
 module.exports = GenshinNewsSubscribeFactory;
