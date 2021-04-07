@@ -14,8 +14,8 @@ client.once('ready', function() {
     client.errorLogger.info(`Login as ${client.user.username}`);
     client.commandManager.loadCommands();
     client.database.connect()
-    .then(_ => {
-        client.database.loadAll();
+    .then(async _ => {
+        await client.database.loadAll();
         client.schedulerManager.startAll();
     });
     client.presenceManager.start();

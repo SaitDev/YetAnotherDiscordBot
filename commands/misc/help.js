@@ -39,9 +39,10 @@ class Help extends Command {
         }
 
         if (args) {
+            args = args.toLowerCase();
             if (this.client.commandManager.modules.has(args)) {
                 fields = this.generateModuleHelp(args);
-                if (!this.client.commandManager.modules.get(args)) {
+                if (!this.client.commandManager.modules.get(args)) {// missing module.json
                     title = `Module ${args}`;
                 }
             } else if (this.client.commandManager.commands.has(args)) {
@@ -126,8 +127,8 @@ class Help extends Command {
         if (command.usages && command.usages.length > 0) {
             fields.push(Embed.createField('Usages', 
                 command.usages.join('\n')
-                .replaceAll('%prefix%', prefix)
-                .replaceAll('%mentionBot%', this.client.user.toString())
+                .replaceAll(common.prefixPattern, prefix)
+                .replaceAll(common.mentionBotPattern, this.client.user.toString())
             ));
         }
         return fields;

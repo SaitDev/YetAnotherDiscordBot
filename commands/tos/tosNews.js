@@ -16,9 +16,11 @@ const info = {
         common.prefixPattern + "tosnews category amount",
         "(categories are: `all`, `patch`, `event`, `announcement`, `blog`, `issue`)",
         "Example: " + common.prefixPattern + "tosnews event 5",
+        "",
         common.prefixPattern + "tosnews subscribe category",
         "(subscribe to category, news will be auto posted to this channel)",
         "Example: " + common.prefixPattern + "tosnews subscribe patch",
+        "",
         common.prefixPattern + "tosnews unsubscribe category",
     ],
     runIn: ["text", "dm"],
@@ -53,7 +55,7 @@ class TosNew extends Command {
                     categoryId = id;
                 } else {
                     this.sendFromMessage(msg, `Category \`${params[1]}\` not found`);
-                return;
+                    return;
                 }
             }
             var guildId = msg.guild ? msg.guild.id : null;

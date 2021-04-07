@@ -122,7 +122,7 @@ class Command {
 	}
 
 	checkChannel(msg) {
-		return this.runIn.includes(msg.channel.type);
+		return !this.runIn || (Array.isArray(this.runIn) && this.runIn.includes(msg.channel.type));
 	}
 
 	checkNsfw(msg) {

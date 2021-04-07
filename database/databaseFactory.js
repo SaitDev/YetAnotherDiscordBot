@@ -5,6 +5,8 @@ const config = require('../config.json')
 const GuildSettings = require('./user/guildSettings')
 const AutoTosNews = require('./user/autoTosNews')
 const LatestTosNew = require('./system/latestTosNew')
+const GenshinNewsSubscribeFactory = require('./user/genshinNewsSubscribeFactory')
+const LatestGenshinNewsFactory = require('../database/system/latestGenshinNewsFactory')
 
 class DatabaseFactory {
     /**
@@ -19,6 +21,8 @@ class DatabaseFactory {
         this.guildSettingManager = new GuildSettings(this);
         this.autoTosNewManager = new AutoTosNews(this);
         this.latestTosNewManager = new LatestTosNew(this);
+        this.genshinNewsSubscribeFactory = new GenshinNewsSubscribeFactory(this);
+        this.latestGenshinNewsFactory = new LatestGenshinNewsFactory(this);
     }
 
     connect() {
@@ -40,11 +44,13 @@ class DatabaseFactory {
         });
     }
 
-    loadAll() {
-        bluebird.all([
+    async loadAll() {
+        return bluebird.all([
             this.guildSettingManager.loadSettings(),
             this.autoTosNewManager.loadSettings(),
-            this.latestTosNewManager.loadHistory()
+            this.latestTosNewManager.loadHistory(),
+            this.genshinNewsSubscribeFactory.loadSettings(),
+            this.latestGenshinNewsFactory.loadHistory()
         ]).then(() => {
             this.ready = true;
         }).catch(err => {
